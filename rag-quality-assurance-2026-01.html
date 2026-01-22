@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Deck Pipeline">
+  <meta name="color-scheme" content="dark">
+  <title>Quality Assurance for RAG Knowledge Bases</title>
+
+  <!-- Reveal.js Core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Highlight.js for code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <style>
+/**
+ * Deck Dark Theme - Inline for Portability
+ */
+
+:root {
+  --bg-primary: #08080f;
+  --bg-secondary: #0e0e18;
+  --bg-tertiary: #151520;
+  --bg-elevated: #1a1a28;
+  --text-primary: #f2f2f8;
+  --text-secondary: #a5a5b8;
+  --text-muted: #65657a;
+  --text-accent: #78b8ff;
+  --accent-primary: #5c9eff;
+  --accent-primary-hover: #7eb8ff;
+  --accent-success: #55f09a;
+  --accent-warning: #ffcc35;
+  --accent-danger: #ff7878;
+  --accent-info: #45d0ff;
+  --accent-purple: #d090ff;
+  --accent-teal: #40e0d0;
+  --callout-note-bg: rgba(92, 158, 255, 0.08);
+  --callout-success-bg: rgba(85, 240, 154, 0.08);
+  --callout-warning-bg: rgba(255, 204, 53, 0.08);
+  --callout-danger-bg: rgba(255, 120, 120, 0.08);
+  --callout-info-bg: rgba(69, 208, 255, 0.08);
+  --nav-bg: #060610;
+  --nav-active: #1a1a28;
+  --nav-border: #252535;
+  --nav-hover: #12121c;
+  --nav-width: 280px;
+  --nav-width-collapsed: 60px;
+  --code-bg: #0a0a14;
+  --code-text: #f2f2f8;
+  --code-keyword: #d090ff;
+  --code-string: #70f0a0;
+  --code-number: #ffb080;
+  --code-comment: #5a5a70;
+  --code-function: #78b8ff;
+  --font-heading: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 20px rgba(92, 158, 255, 0.15);
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body { margin: 0; padding: 0; font-family: var(--font-body); background-color: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+
+.deck-container { display: flex; height: 100vh; width: 100%; overflow: hidden; }
+.deck-content { flex: 1; height: 100vh; margin-left: var(--nav-width); overflow: hidden; transition: margin-left var(--transition-normal); }
+.deck-container.nav-collapsed .deck-content { margin-left: var(--nav-width-collapsed); }
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; line-height: 1.15; margin-top: 0; color: var(--text-primary); letter-spacing: -0.02em; }
+h1 { font-size: 2.75rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+h2 { font-size: 2rem; margin-bottom: 1.25rem; }
+h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1rem; }
+p { margin-top: 0; margin-bottom: 1.125rem; color: var(--text-primary); line-height: 1.65; }
+a { color: var(--text-accent); text-decoration: none; }
+a:hover { color: var(--accent-primary-hover); }
+strong { font-weight: 600; }
+.text-muted { color: var(--text-muted); }
+
+.reveal { font-family: var(--font-body); font-size: 1.125rem; color: var(--text-primary); background-color: var(--bg-primary); height: 100%; }
+.reveal .slides { text-align: left; overflow: visible !important; }
+.reveal .slides section { height: auto !important; min-height: 100%; max-height: 100vh; padding: 2.5rem 3.5rem; background-color: var(--bg-primary); overflow-y: auto !important; overflow-x: hidden !important; box-sizing: border-box; }
+.reveal .slides section::-webkit-scrollbar { width: 8px; }
+.reveal .slides section::-webkit-scrollbar-track { background: transparent; }
+.reveal .slides section::-webkit-scrollbar-thumb { background: var(--nav-border); border-radius: 4px; }
+.reveal h1 { font-size: 2.75rem; font-weight: 700; }
+.reveal h2 { font-size: 1.875rem; font-weight: 600; border-bottom: 3px solid var(--accent-primary); padding-bottom: 0.625rem; margin-bottom: 1.75rem; }
+.reveal h3 { font-size: 1.375rem; font-weight: 500; color: var(--text-accent); }
+.reveal ul, .reveal ol { margin-left: 0; padding-left: 1.75rem; }
+.reveal li { margin-bottom: 0.625rem; line-height: 1.6; }
+.reveal li::marker { color: var(--accent-primary); }
+.reveal blockquote { border-left: 4px solid var(--accent-primary); margin: 1.75rem 0; font-style: normal; background: var(--callout-note-bg); padding: 1.125rem 1.5rem; border-radius: var(--radius-md); }
+
+code, pre { font-family: var(--font-mono); }
+code { background: var(--code-bg); padding: 0.2em 0.45em; border-radius: var(--radius-sm); font-size: 0.875em; color: var(--accent-purple); border: 1px solid rgba(208, 144, 255, 0.15); }
+pre { background: var(--code-bg); padding: 1.25rem 1.75rem; border-radius: var(--radius-lg); overflow-x: auto; margin: 1.75rem 0; border: 1px solid var(--nav-border); }
+pre code { background: none; padding: 0; border: none; color: var(--code-text); font-size: 0.9rem; }
+
+.callout { background: var(--callout-note-bg); border-left: 4px solid var(--accent-primary); border-radius: var(--radius-md); padding: 1.125rem 1.5rem; margin: 1.75rem 0; }
+.callout-success { border-left-color: var(--accent-success); background: var(--callout-success-bg); }
+.callout-warning { border-left-color: var(--accent-warning); background: var(--callout-warning-bg); }
+.callout-danger { border-left-color: var(--accent-danger); background: var(--callout-danger-bg); }
+.callout-info { border-left-color: var(--accent-info); background: var(--callout-info-bg); }
+
+table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 1.75rem 0; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--nav-border); }
+th, td { text-align: left; padding: 0.875rem 1.125rem; border-bottom: 1px solid var(--nav-border); }
+th { background: var(--bg-tertiary); font-weight: 600; font-size: 0.9375rem; text-transform: uppercase; letter-spacing: 0.03em; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: rgba(255, 255, 255, 0.02); }
+
+.big-number { font-size: 4rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-primary), var(--accent-info)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 0.625rem; }
+.metric-label { font-size: 0.875rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+
+.card { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow-md); border: 1px solid var(--nav-border); }
+.columns { display: flex; gap: 2rem; margin: 1.5rem 0; }
+.column { flex: 1; }
+
+.emoji-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+.phase-number { display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; background: var(--accent-primary); color: var(--bg-primary); border-radius: 50%; font-weight: 700; font-size: 1.25rem; margin-right: 1rem; }
+.status-pass { color: var(--accent-success); font-weight: 600; }
+.status-fail { color: var(--accent-danger); font-weight: 600; }
+.highlight-box { background: linear-gradient(135deg, rgba(92, 158, 255, 0.1), rgba(208, 144, 255, 0.1)); border: 1px solid var(--accent-primary); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; }
+.analogy-box { background: var(--callout-info-bg); border-left: 4px solid var(--accent-info); padding: 1rem 1.5rem; border-radius: var(--radius-md); margin: 1.5rem 0; }
+.analogy-box::before { content: "🎯 Analogy: "; font-weight: 600; color: var(--accent-info); }
+
+.title-slide { display: flex; flex-direction: column; justify-content: center; min-height: 100vh; text-align: center; }
+.title-slide h1 { font-size: 3.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.title-slide .subtitle { font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 2rem; }
+.title-slide .meta { color: var(--text-muted); font-size: 1rem; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 1.5rem 0; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin: 1.5rem 0; }
+
+@media (max-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .columns { flex-direction: column; }
+}
+@media (max-width: 768px) {
+  :root { --nav-width: 0px; }
+  .deck-content { margin-left: 0; }
+  .deck-nav { transform: translateX(-100%); }
+  .deck-nav.open { transform: translateX(0); }
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .reveal .slides section { padding: 1.25rem 1.5rem; }
+  h1 { font-size: 1.875rem; }
+  .title-slide h1 { font-size: 2rem; }
+  .big-number { font-size: 2.5rem; }
+}
+
+/* Navigation */
+.deck-nav { position: fixed; top: 0; left: 0; width: var(--nav-width); height: 100vh; background: var(--nav-bg); border-right: 1px solid var(--nav-border); display: flex; flex-direction: column; z-index: 100; overflow: hidden; box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); }
+.deck-container.nav-collapsed .deck-nav { width: var(--nav-width-collapsed); }
+.deck-container.nav-collapsed .deck-nav .nav-text { opacity: 0; visibility: hidden; }
+.nav-header { padding: 1.5rem; border-bottom: 1px solid var(--nav-border); display: flex; align-items: center; justify-content: space-between; }
+.nav-title { font-size: 1rem; font-weight: 600; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-toggle { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 0.5rem; border-radius: var(--radius-sm); display: flex; }
+.nav-toggle:hover { background: var(--nav-hover); color: var(--text-primary); }
+.nav-toggle svg { width: 20px; height: 20px; }
+.nav-progress { padding: 1rem 1.5rem; border-bottom: 1px solid var(--nav-border); }
+.nav-progress-bar { background: var(--bg-tertiary); border-radius: var(--radius-sm); height: 4px; overflow: hidden; margin-bottom: 0.5rem; }
+.nav-progress-fill { background: linear-gradient(90deg, var(--accent-primary), var(--accent-teal)); height: 100%; width: var(--progress, 0%); transition: width var(--transition-normal); }
+.nav-progress-text { font-size: 0.75rem; color: var(--text-muted); text-align: center; }
+.nav-sections { flex: 1; overflow-y: auto; padding: 1rem 0; list-style: none; margin: 0; }
+.nav-section { margin: 0; }
+.nav-section > a { display: flex; align-items: center; padding: 0.75rem 1.5rem; color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; border-left: 3px solid transparent; }
+.nav-section > a:hover { background: var(--nav-hover); color: var(--text-primary); }
+.nav-section.active > a { background: var(--nav-active); color: var(--text-accent); border-left-color: var(--accent-primary); }
+.nav-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--nav-border); display: flex; gap: 0.5rem; }
+.nav-action { flex: 1; background: var(--bg-tertiary); border: none; color: var(--text-secondary); padding: 0.5rem; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.nav-action:hover { background: var(--nav-hover); color: var(--text-primary); }
+.nav-action svg { width: 18px; height: 18px; }
+.nav-mobile-toggle { display: none; position: fixed; top: 1rem; left: 1rem; z-index: 150; background: var(--bg-secondary); border: 1px solid var(--nav-border); color: var(--text-primary); padding: 0.75rem; border-radius: var(--radius-md); cursor: pointer; }
+@media (max-width: 768px) {
+  .nav-mobile-toggle { display: flex; align-items: center; justify-content: center; }
+  .deck-nav { transform: translateX(-100%); width: 280px; }
+  .deck-nav.open { transform: translateX(0); }
+}
+.nav-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 99; display: none; }
+.deck-nav.open + .nav-overlay { display: block; }
+
+/* Search */
+.nav-search-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(6, 6, 12, 0.92); backdrop-filter: blur(12px); display: none; align-items: flex-start; justify-content: center; padding-top: 15vh; z-index: 200; }
+.nav-search-overlay.open { display: flex; }
+.nav-search-box { background: var(--bg-secondary); border-radius: var(--radius-xl); width: 90%; max-width: 640px; box-shadow: var(--shadow-lg); overflow: hidden; }
+.nav-search-input { width: 100%; background: none; border: none; padding: 1.25rem 1.5rem; font-size: 1.125rem; color: var(--text-primary); outline: none; }
+.nav-search-results { max-height: 400px; overflow-y: auto; border-top: 1px solid var(--nav-border); }
+.nav-search-result { padding: 0.75rem 1.5rem; cursor: pointer; }
+.nav-search-result:hover { background: var(--nav-hover); }
+.nav-search-result-title { font-weight: 500; margin-bottom: 0.25rem; }
+.nav-search-result-context { font-size: 0.8125rem; color: var(--text-muted); }
+.nav-search-result mark { background: rgba(79, 140, 255, 0.3); color: var(--text-accent); }
+
+/* Lightbox */
+.lightbox { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 300; cursor: zoom-out; }
+.lightbox.open { display: flex; }
+.lightbox-image { max-width: 90%; max-height: 90vh; object-fit: contain; border-radius: var(--radius-md); }
+.lightbox-close { position: absolute; top: 1rem; right: 1rem; background: var(--bg-secondary); border: none; color: var(--text-primary); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.lightbox-caption { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--bg-secondary); padding: 0.75rem 1.5rem; border-radius: var(--radius-md); color: var(--text-secondary); font-size: 0.875rem; }
+
+/* Collapsible */
+.collapsible { margin: 1.75rem 0; border: 1px solid var(--nav-border); border-radius: var(--radius-lg); }
+.collapsible-header { display: flex; align-items: center; justify-content: space-between; padding: 1.125rem 1.5rem; background: var(--bg-secondary); cursor: pointer; user-select: none; border-radius: var(--radius-lg); }
+.collapsible-header:hover { background: var(--bg-tertiary); }
+.collapsible.open .collapsible-header { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.collapsible-title { font-weight: 500; margin: 0; }
+.collapsible-icon { width: 20px; height: 20px; color: var(--accent-primary); transition: transform var(--transition-fast); }
+.collapsible.open .collapsible-icon { transform: rotate(180deg); }
+.collapsible-content { max-height: 0; overflow: hidden; transition: max-height var(--transition-normal); }
+.collapsible.open .collapsible-content { max-height: 2000px; }
+.collapsible-body { padding: 1.5rem; border-top: 1px solid var(--nav-border); background: rgba(0, 0, 0, 0.15); }
+.collapsible-body ul { list-style: none; padding-left: 0; }
+.collapsible-body ul li { padding-left: 0.25rem; }
+
+/* Chart container */
+.chart-container { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1.75rem; margin: 1.75rem 0; border: 1px solid var(--nav-border); }
+.chart-title { font-size: 1.0625rem; font-weight: 600; margin-bottom: 1.25rem; }
+.chart-wrapper { position: relative; height: 320px; }
+
+  </style>
+</head>
+<body>
+  <div class="deck-container">
+
+    <!-- Left Navigation -->
+    <nav class="deck-nav" aria-label="Presentation navigation">
+      <div class="nav-header">
+        <h1 class="nav-title nav-text">RAG Quality Assurance</h1>
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="nav-progress">
+        <div class="nav-progress-bar">
+          <div class="nav-progress-fill" style="--progress: 0%"></div>
+        </div>
+        <div class="nav-progress-text nav-text">
+          <span class="current-slide">1</span> of <span class="total-slides">16</span>
+        </div>
+      </div>
+
+      <ul class="nav-sections">
+        <li class="nav-section active"><a href="#/0" onclick="deck.slide(0)">Title</a></li>
+        <li class="nav-section"><a href="#/1" onclick="deck.slide(1)">What is RAG?</a></li>
+        <li class="nav-section"><a href="#/2" onclick="deck.slide(2)">Why Quality Matters</a></li>
+        <li class="nav-section"><a href="#/3" onclick="deck.slide(3)">The 5-Phase Approach</a></li>
+        <li class="nav-section"><a href="#/4" onclick="deck.slide(4)">Phase 1: URLs</a></li>
+        <li class="nav-section"><a href="#/5" onclick="deck.slide(5)">Phase 2: Content</a></li>
+        <li class="nav-section"><a href="#/6" onclick="deck.slide(6)">Phase 3: Deduplication</a></li>
+        <li class="nav-section"><a href="#/7" onclick="deck.slide(7)">Phase 4: Chunks</a></li>
+        <li class="nav-section"><a href="#/8" onclick="deck.slide(8)">Phase 5: Query Testing</a></li>
+        <li class="nav-section"><a href="#/9" onclick="deck.slide(9)">The Big Discovery</a></li>
+        <li class="nav-section"><a href="#/10" onclick="deck.slide(10)">Why Stubs Win</a></li>
+        <li class="nav-section"><a href="#/11" onclick="deck.slide(11)">The Fix</a></li>
+        <li class="nav-section"><a href="#/12" onclick="deck.slide(12)">Key Learnings</a></li>
+        <li class="nav-section"><a href="#/13" onclick="deck.slide(13)">Practical Tips</a></li>
+        <li class="nav-section"><a href="#/14" onclick="deck.slide(14)">Final Results</a></li>
+        <li class="nav-section"><a href="#/15" onclick="deck.slide(15)">Resources</a></li>
+      </ul>
+
+      <div class="nav-footer">
+        <button class="nav-action" aria-label="Search" onclick="openSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+        <button class="nav-action" aria-label="Fullscreen" onclick="toggleFullscreen()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile nav toggle -->
+    <button class="nav-mobile-toggle" aria-label="Open navigation" onclick="toggleMobileNav()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Mobile overlay -->
+    <div class="nav-overlay" onclick="toggleMobileNav()"></div>
+
+    <!-- Main Content -->
+    <div class="deck-content">
+      <div class="reveal">
+        <div class="slides">
+
+          <!-- Slide 0: Title -->
+          <section class="title-slide">
+            <h1>Quality Assurance for RAG Knowledge Bases</h1>
+            <p class="subtitle">A Real-World Case Study in AI Data Quality</p>
+            <p class="meta">
+              Based on the CA-AIDev Bot Quality Audit Project<br>
+              <span style="color: var(--accent-primary);">For students new to AI development</span>
+            </p>
+          </section>
+
+          <!-- Slide 1: What is RAG? -->
+          <section>
+            <h2>What is RAG?</h2>
+
+            <div class="highlight-box">
+              <h3 style="margin-top: 0;">RAG = Retrieval-Augmented Generation</h3>
+              <p>Instead of relying only on what an AI model "memorized" during training, RAG lets the AI <strong>look up information</strong> from a knowledge base before answering.</p>
+            </div>
+
+            <div class="analogy-box">
+              Think of it like an open-book exam. The AI can search through your documents to find relevant information before crafting a response.
+            </div>
+
+            <div class="grid-2" style="margin-top: 2rem;">
+              <div class="card">
+                <span class="emoji-icon">🧠</span>
+                <h4>Without RAG</h4>
+                <p class="text-muted">AI relies on training data (can be outdated or wrong)</p>
+              </div>
+              <div class="card">
+                <span class="emoji-icon">📚</span>
+                <h4>With RAG</h4>
+                <p class="text-muted">AI searches your knowledge base for current, accurate info</p>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- Slide 2: Why Quality Matters -->
+          <section>
+            <h2>Why Quality Matters</h2>
+
+            <div class="callout callout-danger">
+              <strong>Garbage In = Garbage Out</strong><br>
+              If your knowledge base has bad data, your AI will give bad answers.
+            </div>
+
+            <h3>The Three Bots in Our Case Study</h3>
+
+            <div class="grid-3">
+              <div class="card">
+                <span class="emoji-icon">💼</span>
+                <h4>BizBot</h4>
+                <p class="text-muted">California business licensing information</p>
+              </div>
+              <div class="card">
+                <span class="emoji-icon">👶</span>
+                <h4>KiddoBot</h4>
+                <p class="text-muted">Child care and family resources</p>
+              </div>
+              <div class="card">
+                <span class="emoji-icon">💧</span>
+                <h4>WaterBot</h4>
+                <p class="text-muted">Water board regulations</p>
+              </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+              <p style="margin: 0; font-size: 1.25rem;"><strong>Core Value:</strong> Every piece of information a bot returns must be <span style="color: var(--accent-success);">accurate</span> and <span style="color: var(--accent-info);">verifiable</span>.</p>
+            </div>
+
+          </section>
+
+          <!-- Slide 3: The 5-Phase Approach -->
+          <section>
+            <h2>The 5-Phase Quality Audit</h2>
+
+            <p>We developed a systematic approach to ensure data quality:</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Phase</th>
+                  <th>Focus</th>
+                  <th>Question Answered</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="phase-number">1</span></td>
+                  <td><strong>URL Validation</strong></td>
+                  <td>Are all links still working?</td>
+                </tr>
+                <tr>
+                  <td><span class="phase-number">2</span></td>
+                  <td><strong>Content Quality</strong></td>
+                  <td>Is the information still accurate?</td>
+                </tr>
+                <tr>
+                  <td><span class="phase-number">3</span></td>
+                  <td><strong>Deduplication</strong></td>
+                  <td>Any duplicate or corrupt data?</td>
+                </tr>
+                <tr>
+                  <td><span class="phase-number">4</span></td>
+                  <td><strong>Chunk Consistency</strong></td>
+                  <td>Are chunks the right size?</td>
+                </tr>
+                <tr>
+                  <td><span class="phase-number">5</span></td>
+                  <td><strong>Query Testing</strong></td>
+                  <td>Does search return relevant results?</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="analogy-box">
+              Like a restaurant health inspection—you check everything from ingredients (content) to storage (database) to serving (retrieval).
+            </div>
+
+          </section>
+
+          <!-- Slide 4: Phase 1 -->
+          <section>
+            <h2><span class="phase-number">1</span> Phase 1: URL Validation</h2>
+
+            <h3>The Problem</h3>
+            <p>Government websites change constantly. A link that worked last year might be broken today.</p>
+
+            <div class="columns">
+              <div class="column">
+                <div class="card">
+                  <div class="big-number">587</div>
+                  <div class="metric-label">Broken URLs Found</div>
+                </div>
+              </div>
+              <div class="column">
+                <h4>Common Issues:</h4>
+                <ul>
+                  <li>Sites restructured (.html → .asp)</li>
+                  <li>Pages moved to new locations</li>
+                  <li>Domains changed entirely</li>
+                  <li>Bot protection (false positives)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">🔍 Example: FTB URL Changes</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <p>California's Franchise Tax Board restructured their entire website:</p>
+                  <pre><code>OLD: ftb.ca.gov/forms/search/index.aspx?form=XXX
+NEW: ftb.ca.gov/forms/search/
+
+OLD: ftb.ca.gov/pay/business/web-pay.html
+NEW: ftb.ca.gov/pay/bank-account/index.asp</code></pre>
+                  <p>We fixed 14 FTB URLs in a single session!</p>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- Slide 5: Phase 2 -->
+          <section>
+            <h2><span class="phase-number">2</span> Phase 2: Content Quality Audit</h2>
+
+            <h3>Scanning for Outdated Information</h3>
+            <p>We built automated scanners to flag potentially outdated content:</p>
+
+            <div class="grid-3">
+              <div class="card">
+                <div class="big-number" style="font-size: 2.5rem;">4,952</div>
+                <div class="metric-label">Total Findings</div>
+              </div>
+              <div class="card">
+                <div class="big-number" style="font-size: 2.5rem;">613</div>
+                <div class="metric-label">Critical Items</div>
+              </div>
+              <div class="card">
+                <div class="big-number" style="font-size: 2.5rem;">492</div>
+                <div class="metric-label">Actionable</div>
+              </div>
+            </div>
+
+            <div class="collapsible" style="margin-top: 1.5rem;">
+              <div class="collapsible-header">
+                <span class="collapsible-title">🐛 Real Bug Found: ISO Standard Update</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <p><strong>Finding:</strong> Manufacturing guide referenced ISO 13485:<span style="color: var(--accent-danger);">2003</span></p>
+                  <p><strong>Problem:</strong> The 2003 version was withdrawn in 2016!</p>
+                  <p><strong>Fix:</strong> Updated to ISO 13485:<span style="color: var(--accent-success);">2016</span></p>
+                  <p class="text-muted">Without this audit, users would have been pointed to an obsolete standard.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-info">
+              <strong>Key Insight:</strong> Not all "old dates" are problems. Historical drought documentation (2012-2016) is intentionally historical. Context matters!
+            </div>
+
+          </section>
+
+          <!-- Slide 6: Phase 3 -->
+          <section>
+            <h2><span class="phase-number">3</span> Phase 3: Deduplication & Embedding Integrity</h2>
+
+            <h3>What Are Embeddings?</h3>
+            <div class="analogy-box">
+              Embeddings are like GPS coordinates for text. They turn words into numbers so the AI can measure how "close" two pieces of text are in meaning.
+            </div>
+
+            <h3>What We Checked</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Check</th>
+                  <th>BizBot</th>
+                  <th>KiddoBot</th>
+                  <th>WaterBot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Duplicate content</td>
+                  <td class="status-pass">0 ✓</td>
+                  <td class="status-pass">0 ✓</td>
+                  <td class="status-pass">0 ✓</td>
+                </tr>
+                <tr>
+                  <td>NULL embeddings</td>
+                  <td class="status-pass">0 ✓</td>
+                  <td class="status-pass">0 ✓</td>
+                  <td class="status-pass">0 ✓</td>
+                </tr>
+                <tr>
+                  <td>Wrong dimensions</td>
+                  <td class="status-pass">0 ✓</td>
+                  <td class="status-pass">0 ✓</td>
+                  <td class="status-pass">0 ✓</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout callout-success">
+              <strong>All checks passed!</strong> No remediation required for Phase 3.
+            </div>
+
+            <p class="text-muted">Expected dimensions: 1536 (OpenAI's text-embedding-ada-002 model)</p>
+
+          </section>
+
+          <!-- Slide 7: Phase 4 -->
+          <section>
+            <h2><span class="phase-number">4</span> Phase 4: Chunk & Metadata Consistency</h2>
+
+            <h3>What is Chunking?</h3>
+            <div class="analogy-box">
+              Documents are too big to search all at once. We break them into "chunks"—like cutting a pizza into slices. Each slice should be just the right size: big enough to be useful, small enough to be specific.
+            </div>
+
+            <h3>Chunk Size Analysis</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Bot</th>
+                  <th>Total Chunks</th>
+                  <th>Undersized</th>
+                  <th>Ideal Range %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>BizBot</td>
+                  <td>425</td>
+                  <td style="color: var(--accent-warning);">33 (7.8%)</td>
+                  <td>92.2%</td>
+                </tr>
+                <tr>
+                  <td>KiddoBot</td>
+                  <td>1,390</td>
+                  <td>14 (1%)</td>
+                  <td>98.9%</td>
+                </tr>
+                <tr>
+                  <td>WaterBot</td>
+                  <td>1,253</td>
+                  <td>1 (0.08%)</td>
+                  <td style="color: var(--accent-success);">99.9% ⭐</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="highlight-box">
+              <p style="margin: 0;"><strong>WaterBot = Gold Standard!</strong> 99.9% ideal chunk sizes, 100% metadata coverage. This became our reference for best practices.</p>
+            </div>
+
+            <p class="text-muted">Those 33 undersized BizBot chunks? They became the star of Phase 5...</p>
+
+          </section>
+
+          <!-- Slide 8: Phase 5 -->
+          <section>
+            <h2><span class="phase-number">5</span> Phase 5: Query Coverage Testing</h2>
+
+            <h3>The Ultimate Test</h3>
+            <p>Do real user queries actually return relevant results?</p>
+
+            <div class="columns">
+              <div class="column">
+                <h4>Test Methodology:</h4>
+                <ol>
+                  <li>Create realistic user queries</li>
+                  <li>Run semantic search</li>
+                  <li>Score relevance (0-2)</li>
+                  <li>Target: 90%+ coverage</li>
+                </ol>
+              </div>
+              <div class="column">
+                <h4>Example Queries:</h4>
+                <ul>
+                  <li>"How do I get a restaurant license?"</li>
+                  <li>"FTB business registration"</li>
+                  <li>"CalWORKs eligibility requirements"</li>
+                  <li>"Drought regulations timeline"</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-danger" style="margin-top: 1.5rem;">
+              <strong>Initial Results Were Shocking:</strong><br>
+              BizBot coverage: <strong>75%</strong> (target: 90%)<br>
+              Something was very wrong...
+            </div>
+
+          </section>
+
+          <!-- Slide 9: The Big Discovery -->
+          <section>
+            <h2>🔬 The Big Discovery: Stub Pollution</h2>
+
+            <div class="highlight-box" style="background: linear-gradient(135deg, rgba(255, 120, 120, 0.15), rgba(255, 204, 53, 0.1)); border-color: var(--accent-danger);">
+              <h3 style="margin-top: 0; color: var(--accent-danger);">The Problem</h3>
+              <p>When users searched for "FTB", they got a <strong>25-character stub</strong> instead of a <strong>349-character guide</strong>!</p>
+            </div>
+
+            <h3>What Were These Stubs?</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Example</th>
+                  <th>Length</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Agency name</td>
+                  <td><code>Franchise Tax Board (FTB)</code></td>
+                  <td>25 chars</td>
+                </tr>
+                <tr>
+                  <td>Header fragment</td>
+                  <td><code># Entity Types Decision Matrix...</code></td>
+                  <td>57 chars</td>
+                </tr>
+                <tr>
+                  <td>Metadata label</td>
+                  <td><code>bizbot</code></td>
+                  <td>6 chars</td>
+                </tr>
+                <tr>
+                  <td>Delimiter</td>
+                  <td><code>---</code></td>
+                  <td>3 chars</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p style="margin-top: 1.5rem;">These were artifacts from the JSON document loader—tiny fragments that should never have been stored as searchable chunks.</p>
+
+          </section>
+
+          <!-- Slide 10: Why Stubs Win -->
+          <section>
+            <h2>🧮 Why Do Tiny Stubs Beat Long Content?</h2>
+
+            <div class="analogy-box">
+              Imagine you're looking for "pizza" in a cookbook. A page titled "PIZZA" will seem more relevant than a page called "Italian Recipes" that mentions pizza among 50 other dishes—even though the second page has more useful information!
+            </div>
+
+            <h3>The Math Behind the Problem</h3>
+            <div class="columns">
+              <div class="column card">
+                <h4 style="color: var(--accent-danger);">Stub: 25 chars</h4>
+                <p><code>"Franchise Tax Board (FTB)"</code></p>
+                <ul>
+                  <li>100% of text is "FTB"</li>
+                  <li>Very "dense" embedding</li>
+                  <li><strong>High similarity to "FTB" query</strong></li>
+                </ul>
+              </div>
+              <div class="column card">
+                <h4 style="color: var(--accent-success);">Guide: 2000 chars</h4>
+                <p><code>"Complete FTB guide with forms, deadlines, requirements..."</code></p>
+                <ul>
+                  <li>"FTB" is 1% of text</li>
+                  <li>Diluted by other topics</li>
+                  <li><strong>Lower similarity score</strong></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-warning" style="margin-top: 1.5rem;">
+              <strong>Key Insight:</strong> Vector similarity rewards <em>semantic density</em>. Short, focused text can outrank comprehensive content because it's less "diluted" by other concepts.
+            </div>
+
+          </section>
+
+          <!-- Slide 11: The Fix -->
+          <section>
+            <h2>🔧 The Fix: Removing Stub Pollution</h2>
+
+            <h3>Solution: Minimum Chunk Size Threshold</h3>
+            <pre><code class="language-sql">DELETE FROM public.bizbot_documents
+WHERE LENGTH(content) < 100;</code></pre>
+
+            <div class="columns" style="margin-top: 1.5rem;">
+              <div class="column">
+                <div class="card" style="text-align: center;">
+                  <h4>Before</h4>
+                  <div class="big-number" style="font-size: 3rem;">425</div>
+                  <div class="metric-label">rows</div>
+                  <p style="color: var(--accent-danger);">75% coverage</p>
+                </div>
+              </div>
+              <div class="column">
+                <div class="card" style="text-align: center;">
+                  <h4>After</h4>
+                  <div class="big-number" style="font-size: 3rem;">392</div>
+                  <div class="metric-label">rows</div>
+                  <p style="color: var(--accent-success);">100% coverage! 🎉</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-success" style="margin-top: 1.5rem;">
+              <strong>33 stubs removed = 25% coverage improvement!</strong><br>
+              By removing just 7.8% of rows (the tiny useless ones), we achieved 100% query coverage.
+            </div>
+
+            <p class="text-muted">Risk level: Low—these entries contained no actionable content for users.</p>
+
+          </section>
+
+          <!-- Slide 12: Key Learnings -->
+          <section>
+            <h2>📚 Key Learnings</h2>
+
+            <div class="grid-2">
+              <div class="card">
+                <span class="emoji-icon">1️⃣</span>
+                <h4>Stub Pollution is Critical</h4>
+                <p>Small, semantically dense fragments can outrank comprehensive content. Always filter chunks smaller than ~100 characters.</p>
+              </div>
+              <div class="card">
+                <span class="emoji-icon">2️⃣</span>
+                <h4>Context Classification Matters</h4>
+                <p>Not all "old dates" are errors. Historical content (drought timelines, past regulations) is intentionally historical. Build smart filters.</p>
+              </div>
+              <div class="card">
+                <span class="emoji-icon">3️⃣</span>
+                <h4>Vocabulary Mismatch is Real</h4>
+                <p>Users say "Stage 1 vs Stage 2", but content says "CalWORKs Child Care Stages". Consider synonyms and query suggestions.</p>
+              </div>
+              <div class="card">
+                <span class="emoji-icon">4️⃣</span>
+                <h4>Test With Real Queries</h4>
+                <p>Unit tests on data aren't enough. You must test the actual retrieval flow with realistic user questions.</p>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- Slide 13: Practical Tips -->
+          <section>
+            <h2>🛠️ Practical Tips for Your RAG Projects</h2>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">✅ Before Loading Data</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <ul>
+                    <li>Set a <code>MIN_CHUNK_SIZE</code> (100+ chars recommended)</li>
+                    <li>Validate URLs before embedding</li>
+                    <li>Check for duplicate content hashes</li>
+                    <li>Ensure consistent metadata schema</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">🔍 During Operation</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <ul>
+                    <li>Log queries with fewer than 5 results</li>
+                    <li>Monitor for "zero result" queries</li>
+                    <li>Track which content never gets retrieved</li>
+                    <li>Set up periodic URL validation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">🧪 Quality Gates Checklist</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <ul>
+                    <li>☐ Zero duplicate rows</li>
+                    <li>☐ Zero NULL embeddings</li>
+                    <li>☐ All embeddings correct dimensions</li>
+                    <li>☐ Zero stubs (<100 chars)</li>
+                    <li>☐ 90%+ query coverage</li>
+                    <li>☐ URLs return 2xx status codes</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- Slide 14: Final Results -->
+          <section>
+            <h2>📊 Final Results Dashboard</h2>
+
+            <div class="chart-container">
+              <h4 class="chart-title">Query Coverage by Bot (After Remediation)</h4>
+              <div class="chart-wrapper">
+                <canvas id="coverageChart"></canvas>
+              </div>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Requirement</th>
+                  <th>BizBot</th>
+                  <th>KiddoBot</th>
+                  <th>WaterBot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>URLs validated</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                </tr>
+                <tr>
+                  <td>Content verified</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                </tr>
+                <tr>
+                  <td>Zero duplicates</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                </tr>
+                <tr>
+                  <td>No stub pollution</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                  <td class="status-pass">✓</td>
+                </tr>
+                <tr>
+                  <td>Query coverage ≥90%</td>
+                  <td class="status-pass">100% ✓</td>
+                  <td class="status-pass">100% ✓</td>
+                  <td class="status-pass">100% ✓</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="highlight-box" style="text-align: center; margin-top: 1.5rem;">
+              <p style="margin: 0; font-size: 1.5rem;"><strong style="color: var(--accent-success);">✅ READY FOR PRODUCTION</strong></p>
+            </div>
+
+          </section>
+
+          <!-- Slide 15: Resources -->
+          <section>
+            <h2>📖 Resources & Next Steps</h2>
+
+            <div class="grid-2">
+              <div class="card">
+                <h4>Key Concepts to Learn</h4>
+                <ul>
+                  <li><strong>Vector Embeddings</strong> - How AI represents text as numbers</li>
+                  <li><strong>Cosine Similarity</strong> - How AI measures "closeness"</li>
+                  <li><strong>Chunking Strategies</strong> - How to split documents</li>
+                  <li><strong>Semantic Search</strong> - Finding meaning, not just keywords</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h4>Tools Used in This Project</h4>
+                <ul>
+                  <li><strong>PostgreSQL + pgvector</strong> - Vector database</li>
+                  <li><strong>OpenAI Embeddings</strong> - text-embedding-ada-002</li>
+                  <li><strong>Python Scripts</strong> - Validation automation</li>
+                  <li><strong>Playwright</strong> - URL verification</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-info" style="margin-top: 2rem;">
+              <h4 style="margin-top: 0;">Want to Try This Yourself?</h4>
+              <p style="margin-bottom: 0;">Start with a small knowledge base (10-20 documents). Run through all 5 phases. You'll learn more from finding and fixing real issues than from reading about them!</p>
+            </div>
+
+            <div class="highlight-box" style="text-align: center; margin-top: 2rem;">
+              <p style="margin: 0; font-size: 1.25rem;">Questions? 🙋‍♀️</p>
+            </div>
+
+          </section>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="nav-search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+      <div class="nav-search-box" onclick="event.stopPropagation()">
+        <input type="text" class="nav-search-input" placeholder="Search slides..." id="searchInput" oninput="handleSearch(this.value)">
+        <div class="nav-search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <button class="lightbox-close" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <img class="lightbox-image" id="lightboxImage" src="" alt="">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+  </div>
+
+  <!-- Reveal.js Core -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+
+  <script>
+    // Initialize Reveal.js
+    const deck = new Reveal({
+      hash: true,
+      history: true,
+      slideNumber: false,
+      controls: false,
+      progress: false,
+      center: false,
+      embedded: true,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      width: '100%',
+      height: '100%',
+      margin: 0,
+      minScale: 0.2,
+      maxScale: 2.0
+    });
+
+    deck.initialize().then(() => {
+      deck.on('slidechanged', updateProgress);
+      updateProgress();
+      hljs.highlightAll();
+
+      // Fix slide scrolling
+      document.querySelectorAll('.reveal .slides section').forEach(slide => {
+        slide.style.overflowY = 'auto';
+        slide.style.overflowX = 'hidden';
+      });
+
+      // Initialize coverage chart
+      const ctx = document.getElementById('coverageChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['BizBot', 'KiddoBot', 'WaterBot'],
+            datasets: [{
+              label: 'Query Coverage %',
+              data: [100, 100, 100],
+              backgroundColor: ['#5c9eff', '#55f09a', '#45d0ff'],
+              borderRadius: 8,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                grid: { color: '#252535' },
+                ticks: { color: '#a5a5b8', callback: v => v + '%' }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { color: '#a5a5b8' }
+              }
+            }
+          }
+        });
+      }
+    });
+
+    // Navigation functions
+    function updateProgress() {
+      const indices = deck.getIndices();
+      const total = deck.getTotalSlides();
+      const current = indices.h + 1;
+      const progress = (current / total) * 100;
+      document.querySelector('.nav-progress-fill').style.setProperty('--progress', `${progress}%`);
+      document.querySelector('.current-slide').textContent = current;
+      document.querySelector('.total-slides').textContent = total;
+      document.querySelectorAll('.nav-section').forEach((section, i) => {
+        section.classList.toggle('active', i === indices.h);
+      });
+    }
+
+    function toggleNav() {
+      document.querySelector('.deck-container').classList.toggle('nav-collapsed');
+    }
+
+    function toggleMobileNav() {
+      document.querySelector('.deck-nav').classList.toggle('open');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Search
+    const slideContent = [
+      {index: 0, title: 'Title', content: 'Quality Assurance for RAG Knowledge Bases', excerpt: 'A Real-World Case Study...'},
+      {index: 1, title: 'What is RAG?', content: 'Retrieval-Augmented Generation', excerpt: 'Instead of relying only on what an AI model memorized...'},
+      {index: 2, title: 'Why Quality Matters', content: 'Garbage In Garbage Out BizBot KiddoBot WaterBot', excerpt: 'If your knowledge base has bad data...'},
+      {index: 3, title: 'The 5-Phase Approach', content: 'URL Validation Content Quality Deduplication Chunk Query Testing', excerpt: 'We developed a systematic approach...'},
+      {index: 4, title: 'Phase 1: URL Validation', content: 'broken URLs government websites FTB', excerpt: '587 broken URLs found...'},
+      {index: 5, title: 'Phase 2: Content Quality', content: 'outdated information ISO 13485 scanning', excerpt: '4,952 findings, 613 critical...'},
+      {index: 6, title: 'Phase 3: Deduplication', content: 'embeddings duplicates NULL dimensions', excerpt: 'Embeddings are like GPS coordinates for text...'},
+      {index: 7, title: 'Phase 4: Chunk Consistency', content: 'chunking undersized WaterBot gold standard', excerpt: 'Documents are broken into chunks...'},
+      {index: 8, title: 'Phase 5: Query Testing', content: 'coverage semantic search realistic queries', excerpt: 'Do real user queries return relevant results?'},
+      {index: 9, title: 'The Big Discovery', content: 'stub pollution FTB 25 character', excerpt: 'Users got a 25-char stub instead of a 349-char guide...'},
+      {index: 10, title: 'Why Stubs Win', content: 'semantic density vector similarity math', excerpt: 'Short focused text can outrank comprehensive content...'},
+      {index: 11, title: 'The Fix', content: 'DELETE LENGTH minimum chunk size 100', excerpt: '33 stubs removed = 25% coverage improvement...'},
+      {index: 12, title: 'Key Learnings', content: 'stub pollution context classification vocabulary mismatch', excerpt: 'Four key insights from the project...'},
+      {index: 13, title: 'Practical Tips', content: 'MIN_CHUNK_SIZE URLs duplicates quality gates', excerpt: 'Tips for your RAG projects...'},
+      {index: 14, title: 'Final Results', content: 'dashboard coverage 100% production ready', excerpt: 'All bots at 100% coverage...'},
+      {index: 15, title: 'Resources', content: 'embeddings cosine similarity PostgreSQL pgvector', excerpt: 'Key concepts and tools...'}
+    ];
+
+    function openSearch() {
+      document.getElementById('searchOverlay').classList.add('open');
+      document.getElementById('searchInput').focus();
+    }
+
+    function closeSearch(event) {
+      if (event.target.id === 'searchOverlay') {
+        document.getElementById('searchOverlay').classList.remove('open');
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchResults').innerHTML = '';
+      }
+    }
+
+    function handleSearch(query) {
+      const results = document.getElementById('searchResults');
+      if (!query.trim()) { results.innerHTML = ''; return; }
+      const matches = slideContent.filter(slide =>
+        slide.title.toLowerCase().includes(query.toLowerCase()) ||
+        slide.content.toLowerCase().includes(query.toLowerCase())
+      );
+      results.innerHTML = matches.map(match => `
+        <div class="nav-search-result" onclick="goToSlide(${match.index})">
+          <div class="nav-search-result-title">${highlightMatch(match.title, query)}</div>
+          <div class="nav-search-result-context">${highlightMatch(match.excerpt, query)}</div>
+        </div>
+      `).join('');
+    }
+
+    function highlightMatch(text, query) {
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
+    }
+
+    function goToSlide(index) {
+      deck.slide(index);
+      closeSearch({ target: { id: 'searchOverlay' } });
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+      if (e.key === 'Escape') { closeSearch({ target: { id: 'searchOverlay' } }); }
+    });
+
+    // Collapsibles
+    document.querySelectorAll('.collapsible-header').forEach(header => {
+      header.setAttribute('tabindex', '0');
+      header.setAttribute('role', 'button');
+      header.setAttribute('aria-expanded', 'false');
+      const toggle = () => {
+        const isOpen = header.parentElement.classList.toggle('open');
+        header.setAttribute('aria-expanded', isOpen);
+      };
+      header.addEventListener('click', toggle);
+      header.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+
+    // Enable scrolling in slides
+    document.querySelectorAll('.reveal .slides section').forEach(slide => {
+      slide.addEventListener('wheel', (e) => {
+        if (slide.scrollHeight > slide.clientHeight) { e.stopPropagation(); }
+      }, { passive: false });
+    });
+
+    document.querySelectorAll('.collapsible-content').forEach(content => {
+      content.addEventListener('wheel', (e) => { e.stopPropagation(); }, { passive: false });
+    });
+
+    // Lightbox
+    document.querySelectorAll('.lightbox-trigger').forEach(img => {
+      img.addEventListener('click', () => {
+        document.getElementById('lightboxImage').src = img.src;
+        document.getElementById('lightboxCaption').textContent = img.alt || '';
+        document.getElementById('lightbox').classList.add('open');
+      });
+    });
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    // Touch swipe navigation
+    (function() {
+      let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
+      const minSwipeDistance = 50, maxSwipeTime = 300;
+      let touchStartTime = 0;
+      const content = document.querySelector('.deck-content');
+      content.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        touchStartTime = Date.now();
+      }, { passive: true });
+      content.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const deltaTime = Date.now() - touchStartTime;
+        if (deltaTime > maxSwipeTime) return;
+        if (Math.abs(deltaY) > Math.abs(deltaX) * 0.5) return;
+        if (Math.abs(deltaX) < minSwipeDistance) return;
+        if (deltaX > 0) { deck.prev(); } else { deck.next(); }
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

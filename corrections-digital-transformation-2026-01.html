@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Deck Pipeline">
+  <meta name="color-scheme" content="dark">
+  <title>Digital Transformation in Corrections</title>
+
+  <!-- Reveal.js Core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Mermaid.js for diagrams (v11 for stability) -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+
+  <style>
+    /* ==========================================
+       Deck Dark Theme (Inline for Portability)
+       ========================================== */
+    :root {
+      --bg-primary: #08080f;
+      --bg-secondary: #0e0e18;
+      --bg-tertiary: #151520;
+      --bg-elevated: #1a1a28;
+      --text-primary: #f2f2f8;
+      --text-secondary: #a5a5b8;
+      --text-muted: #65657a;
+      --text-accent: #78b8ff;
+      --accent-primary: #5c9eff;
+      --accent-primary-hover: #7eb8ff;
+      --accent-success: #55f09a;
+      --accent-warning: #ffcc35;
+      --accent-danger: #ff7878;
+      --accent-info: #45d0ff;
+      --accent-purple: #d090ff;
+      --accent-teal: #40e0d0;
+      --callout-note-bg: rgba(92, 158, 255, 0.08);
+      --callout-success-bg: rgba(85, 240, 154, 0.08);
+      --callout-warning-bg: rgba(255, 204, 53, 0.08);
+      --callout-danger-bg: rgba(255, 120, 120, 0.08);
+      --callout-info-bg: rgba(69, 208, 255, 0.08);
+      --nav-bg: #060610;
+      --nav-active: #1a1a28;
+      --nav-border: #252535;
+      --nav-hover: #12121c;
+      --nav-width: 280px;
+      --nav-width-collapsed: 60px;
+      --code-bg: #0a0a14;
+      --code-text: #f2f2f8;
+      --font-heading: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+      --font-body: 'Inter', 'SF Pro Text', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+      --shadow-glow: 0 0 20px rgba(92, 158, 255, 0.15);
+      --transition-fast: 150ms ease;
+      --transition-normal: 250ms ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { margin: 0; padding: 0; font-family: var(--font-body); background-color: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+
+    .deck-container { display: flex; height: 100vh; width: 100%; overflow: hidden; }
+    .deck-content { flex: 1; height: 100vh; margin-left: var(--nav-width); overflow: hidden; transition: margin-left var(--transition-normal); }
+    .deck-container.nav-collapsed .deck-content { margin-left: var(--nav-width-collapsed); }
+
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; line-height: 1.15; margin-top: 0; color: var(--text-primary); letter-spacing: -0.02em; }
+    h1 { font-size: 2.75rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+    h2 { font-size: 2rem; margin-bottom: 1.25rem; }
+    h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 1rem; }
+    p { margin-top: 0; margin-bottom: 1.125rem; color: var(--text-primary); line-height: 1.65; }
+    a { color: var(--text-accent); text-decoration: none; transition: color var(--transition-fast), text-shadow var(--transition-fast); }
+    a:hover { color: var(--accent-primary-hover); text-shadow: 0 0 8px rgba(92, 158, 255, 0.4); }
+    strong { font-weight: 600; color: var(--text-primary); }
+    .text-muted { color: var(--text-muted); }
+    .text-secondary { color: var(--text-secondary); }
+
+    .reveal { font-family: var(--font-body); font-size: 1.125rem; color: var(--text-primary); background-color: var(--bg-primary); height: 100%; }
+    .reveal .slides { text-align: left; overflow: visible !important; }
+    .reveal .slides section, .reveal .slides > section { height: auto !important; min-height: 100%; max-height: 100vh; padding: 2.5rem 3.5rem; background-color: var(--bg-primary); overflow-y: auto !important; overflow-x: hidden !important; box-sizing: border-box; }
+    .reveal .slides section::-webkit-scrollbar { width: 8px; }
+    .reveal .slides section::-webkit-scrollbar-track { background: transparent; }
+    .reveal .slides section::-webkit-scrollbar-thumb { background: var(--nav-border); border-radius: 4px; }
+    .reveal h1, .reveal h2, .reveal h3 { font-family: var(--font-heading); color: var(--text-primary); text-transform: none; letter-spacing: -0.02em; }
+    .reveal h1 { font-size: 2.75rem; font-weight: 700; letter-spacing: -0.03em; }
+    .reveal h2 { font-size: 1.875rem; font-weight: 600; border-bottom: 3px solid var(--accent-primary); padding-bottom: 0.625rem; margin-bottom: 1.75rem; }
+    .reveal h3 { font-size: 1.375rem; font-weight: 500; color: var(--text-accent); }
+    .reveal ul, .reveal ol { margin-left: 0; padding-left: 1.75rem; }
+    .reveal li { margin-bottom: 0.625rem; line-height: 1.6; }
+    .reveal li::marker { color: var(--accent-primary); }
+
+    .big-number { font-size: 4rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-primary), var(--accent-info)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 0.625rem; letter-spacing: -0.03em; }
+    .metric-label { font-size: 0.875rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+    .card { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow-md); border: 1px solid var(--nav-border); }
+    .columns { display: flex; gap: 2rem; margin: 1.5rem 0; }
+    .column { flex: 1; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 1.75rem 0; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--nav-border); }
+    th, td { text-align: left; padding: 0.875rem 1.125rem; border-bottom: 1px solid var(--nav-border); }
+    th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); font-size: 0.9375rem; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: rgba(255, 255, 255, 0.02); }
+
+    /* Navigation */
+    .deck-nav { position: fixed; top: 0; left: 0; width: var(--nav-width); height: 100vh; background: var(--nav-bg); border-right: 1px solid var(--nav-border); display: flex; flex-direction: column; z-index: 100; transition: width var(--transition-normal), transform var(--transition-normal); overflow: hidden; box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); }
+    .deck-container.nav-collapsed .deck-nav { width: var(--nav-width-collapsed); }
+    .deck-container.nav-collapsed .deck-nav .nav-text { opacity: 0; visibility: hidden; }
+    .nav-header { padding: 1.5rem; border-bottom: 1px solid var(--nav-border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .nav-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav-toggle { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 0.5rem; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); flex-shrink: 0; }
+    .nav-toggle:hover { background: var(--nav-hover); color: var(--text-primary); }
+    .nav-toggle svg { width: 20px; height: 20px; }
+    .nav-progress { padding: 1rem 1.5rem; border-bottom: 1px solid var(--nav-border); flex-shrink: 0; }
+    .nav-progress-bar { background: var(--bg-tertiary); border-radius: var(--radius-sm); height: 4px; overflow: hidden; margin-bottom: 0.5rem; }
+    .nav-progress-fill { background: linear-gradient(90deg, var(--accent-primary), var(--accent-teal)); height: 100%; width: var(--progress, 0%); transition: width var(--transition-normal); box-shadow: 0 0 8px rgba(92, 158, 255, 0.5); }
+    .nav-progress-text { font-size: 0.75rem; color: var(--text-muted); text-align: center; }
+    .nav-sections { flex: 1; overflow-y: auto; padding: 1rem 0; list-style: none; margin: 0; }
+    .nav-sections::-webkit-scrollbar { width: 6px; }
+    .nav-sections::-webkit-scrollbar-track { background: transparent; }
+    .nav-sections::-webkit-scrollbar-thumb { background: var(--nav-border); border-radius: 3px; }
+    .nav-section { margin: 0; }
+    .nav-section > a { display: flex; align-items: center; padding: 0.75rem 1.5rem; color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; transition: all var(--transition-fast); border-left: 3px solid transparent; }
+    .nav-section > a:hover { background: var(--nav-hover); color: var(--text-primary); }
+    .nav-section.active > a { background: var(--nav-active); color: var(--text-accent); border-left-color: var(--accent-primary); }
+    .nav-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--nav-border); display: flex; gap: 0.5rem; flex-shrink: 0; }
+    .nav-action { flex: 1; background: var(--bg-tertiary); border: none; color: var(--text-secondary); padding: 0.5rem; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); }
+    .nav-action:hover { background: var(--nav-hover); color: var(--text-primary); }
+    .nav-action svg { width: 18px; height: 18px; }
+    .nav-mobile-toggle { display: none; position: fixed; top: 1rem; left: 1rem; z-index: 150; background: var(--bg-secondary); border: 1px solid var(--nav-border); color: var(--text-primary); padding: 0.75rem; border-radius: var(--radius-md); cursor: pointer; box-shadow: var(--shadow-md); }
+
+    /* Collapsible */
+    .collapsible { margin: 1.75rem 0; border: 1px solid var(--nav-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+    .collapsible-header { display: flex; align-items: center; justify-content: space-between; padding: 1.125rem 1.5rem; background: var(--bg-secondary); cursor: pointer; user-select: none; transition: background var(--transition-fast); border-radius: var(--radius-lg); }
+    .collapsible-header:hover { background: var(--bg-tertiary); }
+    .collapsible.open .collapsible-header { background: var(--bg-tertiary); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    .collapsible-title { font-weight: 500; color: var(--text-primary); margin: 0; font-size: 1.0625rem; }
+    .collapsible-icon { width: 20px; height: 20px; color: var(--accent-primary); transition: transform var(--transition-fast); flex-shrink: 0; }
+    .collapsible.open .collapsible-icon { transform: rotate(180deg); }
+    .collapsible-content { max-height: 0; overflow: hidden; transition: max-height var(--transition-normal); }
+    .collapsible.open .collapsible-content { max-height: 50vh; overflow-y: auto; }
+    .collapsible-body { padding: 1.5rem; border-top: 1px solid var(--nav-border); background: rgba(0, 0, 0, 0.15); }
+
+    /* Chart container */
+    .chart-container { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1.75rem; margin: 1.75rem 0; border: 1px solid var(--nav-border); box-shadow: var(--shadow-md); }
+    .chart-title { font-size: 1.0625rem; font-weight: 600; margin-bottom: 1.25rem; color: var(--text-primary); }
+    .chart-wrapper { position: relative; height: 320px; }
+
+    /* Mermaid diagrams */
+    .mermaid-container { margin: 2rem 0; padding: 2rem; background: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--nav-border); overflow: hidden; box-shadow: var(--shadow-md); }
+    .mermaid-container .mermaid { display: block; min-height: 200px; width: 100%; text-align: center; }
+    .diagram-caption { margin-top: 1.25rem; text-align: center; font-size: 0.875rem; color: var(--text-secondary); font-style: italic; }
+    /* Fix edge label ghosting - remove duplicate backgrounds */
+    .mermaid-container .edgeLabel span { background: transparent !important; background-color: transparent !important; }
+    .mermaid-container .edgeLabel .labelBkg { fill: rgba(14, 14, 24, 0.95); }
+    /* Ensure SVG content visible and properly sized */
+    .mermaid-container svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+    .mermaid-container foreignObject { overflow: visible !important; }
+    .mermaid-container foreignObject > div { overflow: visible !important; }
+
+    /* Visual Flow - HTML alternative to Mermaid */
+    .visual-flow { display: flex; align-items: center; justify-content: center; gap: 2rem; padding: 2rem; background: var(--bg-secondary); border-radius: var(--radius-lg); border: 1px solid var(--nav-border); margin: 2rem 0; }
+    .flow-section { text-align: center; }
+    .flow-section h4 { margin-bottom: 1rem; font-size: 1rem; }
+    .flow-items { display: flex; flex-direction: column; gap: 0.5rem; }
+    .flow-tag { padding: 0.5rem 1rem; border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500; }
+    .flow-arrow { font-size: 2rem; color: var(--text-muted); text-align: center; line-height: 1.2; }
+
+    /* Pathway cards for career/phase visuals */
+    .pathway-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .pathway-card { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1rem; border-left: 4px solid var(--accent-primary); }
+    .pathway-card h5 { margin: 0 0 0.5rem; font-size: 0.9rem; color: var(--text-primary); }
+    .pathway-card p { margin: 0; font-size: 0.8rem; color: var(--text-secondary); }
+    .pathway-card .salary { color: #55f09a; font-weight: 600; }
+
+    /* Phase timeline */
+    .phase-timeline { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; justify-content: center; }
+    .phase-item { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1rem; min-width: 150px; text-align: center; border-top: 3px solid; }
+    .phase-item.phase-1 { border-color: #5c9eff; }
+    .phase-item.phase-2 { border-color: #d090ff; }
+    .phase-item.phase-3 { border-color: #45d0ff; }
+    .phase-item.phase-4 { border-color: #55f09a; }
+    .phase-item h5 { margin: 0 0 0.5rem; font-size: 0.85rem; }
+    .phase-item ul { margin: 0; padding-left: 1.2rem; font-size: 0.75rem; text-align: left; }
+
+    /* Safari-specific fixes for visual elements */
+    @supports (-webkit-touch-callout: none) {
+      .visual-flow { display: -webkit-flex; display: flex; -webkit-align-items: center; -webkit-justify-content: center; }
+      .visual-flow, .visual-flow * { -webkit-transform: translateZ(0); transform: translateZ(0); }
+      .flow-section { -webkit-flex-shrink: 0; flex-shrink: 0; }
+      .flow-items { display: -webkit-flex; display: flex; -webkit-flex-direction: column; }
+      .flow-tag { display: inline-block; -webkit-box-sizing: border-box; box-sizing: border-box; }
+      .pathway-grid { display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; }
+      .pathway-card { -webkit-flex: 1 1 200px; flex: 1 1 200px; }
+      .phase-timeline { display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; }
+      .phase-item { -webkit-flex-shrink: 0; flex-shrink: 0; }
+    }
+
+    /* Reveal.js slide content fix - ensure nested flex works */
+    .reveal .slides section .visual-flow { position: relative; z-index: 1; }
+    .reveal .slides section .flow-section { position: relative; z-index: 2; }
+    .reveal .slides section .flow-tag { position: relative; z-index: 3; display: inline-block; }
+
+    /* Search overlay */
+    .nav-search-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(6, 6, 12, 0.92); backdrop-filter: blur(12px); display: none; align-items: flex-start; justify-content: center; padding-top: 15vh; z-index: 200; }
+    .nav-search-overlay.open { display: flex; }
+    .nav-search-box { background: var(--bg-secondary); border-radius: var(--radius-xl); width: 90%; max-width: 640px; box-shadow: var(--shadow-lg), 0 0 0 1px var(--nav-border); overflow: hidden; }
+    .nav-search-input { width: 100%; background: none; border: none; padding: 1.25rem 1.5rem; font-size: 1.125rem; color: var(--text-primary); outline: none; }
+    .nav-search-input::placeholder { color: var(--text-muted); }
+    .nav-search-results { max-height: 400px; overflow-y: auto; border-top: 1px solid var(--nav-border); }
+    .nav-search-result { padding: 0.75rem 1.5rem; cursor: pointer; transition: background var(--transition-fast); }
+    .nav-search-result:hover { background: var(--nav-hover); }
+    .nav-search-result-title { font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
+    .nav-search-result-context { font-size: 0.8125rem; color: var(--text-muted); }
+    .nav-search-result mark { background: rgba(79, 140, 255, 0.3); color: var(--text-accent); }
+
+    /* Lightbox */
+    .lightbox { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 300; cursor: zoom-out; }
+    .lightbox.open { display: flex; }
+    .lightbox-image { max-width: 90%; max-height: 90vh; object-fit: contain; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); }
+    .lightbox-close { position: absolute; top: 1rem; right: 1rem; background: var(--bg-secondary); border: none; color: var(--text-primary); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .lightbox-caption { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--bg-secondary); padding: 0.75rem 1.5rem; border-radius: var(--radius-md); color: var(--text-secondary); font-size: 0.875rem; max-width: 80%; text-align: center; }
+
+    /* Citation link styling */
+    .citation-link { color: var(--accent-info); font-size: 0.8rem; text-decoration: none; border-bottom: 1px dotted var(--accent-info); }
+    .citation-link:hover { color: var(--accent-primary-hover); border-bottom-color: var(--accent-primary-hover); }
+
+    /* Title slide styling */
+    .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; }
+    .title-slide h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+    .title-slide .subtitle { font-size: 1.5rem; color: var(--text-accent); margin-bottom: 2rem; }
+    .title-slide .thesis { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; }
+
+    @media (max-width: 768px) {
+      .nav-mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .deck-nav { transform: translateX(-100%); width: 280px; }
+      .deck-nav.open { transform: translateX(0); }
+      .deck-content { margin-left: 0 !important; }
+      .columns { flex-direction: column; }
+      .big-number { font-size: 2.5rem; }
+    }
+
+    @media print {
+      .deck-nav, .nav-mobile-toggle, .nav-search-overlay, .lightbox { display: none !important; }
+      .deck-content { margin-left: 0 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-container">
+    <!-- Left Navigation -->
+    <nav class="deck-nav" aria-label="Presentation navigation">
+      <div class="nav-header">
+        <h1 class="nav-title nav-text">Digital Transformation</h1>
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="nav-progress">
+        <div class="nav-progress-bar">
+          <div class="nav-progress-fill" style="--progress: 0%"></div>
+        </div>
+        <div class="nav-progress-text nav-text">
+          <span class="current-slide">1</span> of <span class="total-slides">13</span>
+        </div>
+      </div>
+
+      <ul class="nav-sections">
+        <li class="nav-section active"><a href="#/0" onclick="goToSlide(0)">Title</a></li>
+        <li class="nav-section"><a href="#/1" onclick="goToSlide(1)">Key Insight</a></li>
+        <li class="nav-section"><a href="#/2" onclick="goToSlide(2)">The Problem</a></li>
+        <li class="nav-section"><a href="#/3" onclick="goToSlide(3)">The Analog Barrier</a></li>
+        <li class="nav-section"><a href="#/4" onclick="goToSlide(4)">The Opportunity</a></li>
+        <li class="nav-section"><a href="#/5" onclick="goToSlide(5)">Transformation Framework</a></li>
+        <li class="nav-section"><a href="#/6" onclick="goToSlide(6)">Digital Learning</a></li>
+        <li class="nav-section"><a href="#/7" onclick="goToSlide(7)">Workforce Development</a></li>
+        <li class="nav-section"><a href="#/8" onclick="goToSlide(8)">Reentry Preparation</a></li>
+        <li class="nav-section"><a href="#/9" onclick="goToSlide(9)">The ROI Case</a></li>
+        <li class="nav-section"><a href="#/10" onclick="goToSlide(10)">Implementation</a></li>
+        <li class="nav-section"><a href="#/11" onclick="goToSlide(11)">Call to Action</a></li>
+        <li class="nav-section"><a href="#/12" onclick="goToSlide(12)">Sources</a></li>
+      </ul>
+
+      <div class="nav-footer">
+        <button class="nav-action" aria-label="Search" onclick="openSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+        <button class="nav-action" aria-label="Fullscreen" onclick="toggleFullscreen()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile nav toggle -->
+    <button class="nav-mobile-toggle" aria-label="Open navigation" onclick="toggleMobileNav()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Main Content -->
+    <div class="deck-content">
+      <div class="reveal">
+        <div class="slides">
+
+          <!-- Slide 0: Title -->
+          <section class="title-slide">
+            <h1>Digital Transformation<br>in Corrections</h1>
+            <p class="subtitle">Normalizing Through Modernization</p>
+            <p class="thesis"><strong>Core Thesis:</strong> Modernization = Normalization</p>
+            <p class="text-muted" style="margin-top: 2rem;">Preparing incarcerated individuals for successful reentry through digital literacy and workforce development</p>
+          </section>
+
+          <!-- Slide 1: Key Insight -->
+          <section>
+            <h2>The Key Insight</h2>
+            <blockquote style="font-size: 1.5rem; border-left-color: var(--accent-info);">
+              "Every day, the world outside prison walls becomes more digital. Every day we don't prepare incarcerated individuals for that reality, we widen the gap they must bridge upon release."
+            </blockquote>
+            <div class="columns" style="margin-top: 2rem;">
+              <div class="column card" style="text-align: center;">
+                <div class="big-number">83%</div>
+                <div class="metric-label">Return to Prison Within 9 Years</div>
+                <p class="text-muted" style="font-size: 0.8rem; margin-top: 0.5rem;">
+                  <a href="https://bjs.ojp.gov/content/pub/pdf/18upr9yfup0514.pdf" target="_blank" class="citation-link">Bureau of Justice Statistics, 2018</a>
+                </p>
+              </div>
+              <div class="column card" style="text-align: center;">
+                <div class="big-number">43%</div>
+                <div class="metric-label">Reduction with Education</div>
+                <p class="text-muted" style="font-size: 0.8rem; margin-top: 0.5rem;">
+                  <a href="https://bja.ojp.gov/sites/g/files/xyckuh186/files/Publications/RAND_Correctional-Education-Meta-Analysis.pdf" target="_blank" class="citation-link">RAND Corporation Meta-Analysis</a>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 2: The Problem -->
+          <section>
+            <h2>The Problem: A Cycle of Failure</h2>
+            <div class="mermaid-container">
+              <div class="mermaid" id="mermaid-1">
+graph LR
+    A[Release from Prison] --> B[No Digital Skills]
+    B --> C[Limited Job Options]
+    C --> D[Economic Instability]
+    D --> E[Recidivism]
+    E --> A
+
+    style A fill:#ff7878,stroke:#ff5555,color:#fff
+    style B fill:#ffcc35,stroke:#e6b800,color:#000
+    style C fill:#ffcc35,stroke:#e6b800,color:#000
+    style D fill:#ff7878,stroke:#ff5555,color:#fff
+    style E fill:#ff7878,stroke:#ff5555,color:#fff
+              </div>
+              <p class="diagram-caption">The Recidivism Cycle: Without intervention, lack of skills perpetuates failure</p>
+            </div>
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">The Numbers Behind the Crisis</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <ul>
+                    <li><strong>600,000+</strong> people released from state and federal prisons annually</li>
+                    <li><strong>27%</strong> unemployment rate among formerly incarcerated (vs. 4% general population)</li>
+                    <li><strong>68%</strong> rearrested within 3 years of release</li>
+                    <li><strong>77%</strong> rearrested within 5 years of release</li>
+                  </ul>
+                  <p class="text-muted" style="font-size: 0.8rem;">
+                    Sources: <a href="https://bjs.ojp.gov/content/pub/pdf/18upr9yfup0514.pdf" target="_blank" class="citation-link">Bureau of Justice Statistics</a> |
+                    <a href="https://www.prisonpolicy.org/reports/outofwork.html" target="_blank" class="citation-link">Prison Policy Initiative</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 3: The Analog Barrier -->
+          <section>
+            <h2>The Analog Barrier</h2>
+            <p>Most correctional facilities operate with technology infrastructure from the 1990s, creating an ever-widening gap between incarcerated individuals and the digital world they must navigate upon release.</p>
+
+            <div class="visual-flow">
+              <div class="flow-section flow-left">
+                <h4 style="color: #ff7878;">Inside: Analog Reality</h4>
+                <div class="flow-items">
+                  <span class="flow-tag" style="background: #ff7878;">Paper Forms</span>
+                  <span class="flow-tag" style="background: #ff7878;">No Internet</span>
+                  <span class="flow-tag" style="background: #ff7878;">Limited Training</span>
+                  <span class="flow-tag" style="background: #ff7878;">Manual Processes</span>
+                </div>
+              </div>
+              <div class="flow-arrow">→<br><span style="font-size: 0.8rem; color: #ffcc35;">Growing Gap</span><br>→</div>
+              <div class="flow-section flow-right">
+                <h4 style="color: #55f09a;">Outside: Digital World</h4>
+                <div class="flow-items">
+                  <span class="flow-tag" style="background: #55f09a; color: #000;">Online Job Apps</span>
+                  <span class="flow-tag" style="background: #55f09a; color: #000;">Digital Banking</span>
+                  <span class="flow-tag" style="background: #55f09a; color: #000;">Gov Services</span>
+                  <span class="flow-tag" style="background: #55f09a; color: #000;">Remote Work</span>
+                </div>
+              </div>
+            </div>
+            <p class="diagram-caption">The Digital Divide: Analog incarceration vs. digital reentry requirements</p>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">Cost of the Status Quo</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <ul>
+                    <li><strong>$35,000-$60,000</strong> average annual cost per incarcerated person</li>
+                    <li><strong>$80+ billion</strong> total annual corrections spending in the U.S.</li>
+                    <li><strong>2.1 million</strong> people currently incarcerated</li>
+                  </ul>
+                  <p class="text-muted" style="font-size: 0.8rem;">
+                    Sources: <a href="https://www.vera.org/publications/price-of-prisons-2015-state-spending-trends" target="_blank" class="citation-link">Vera Institute of Justice</a> |
+                    <a href="https://www.pew.org/en/research-and-analysis/issue-briefs/2017/03/state-reforms-reverse-decades-of-incarceration-growth" target="_blank" class="citation-link">Pew Research Center</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 4: The Opportunity -->
+          <section>
+            <h2>The Opportunity: Digital Equity Act</h2>
+            <p>The <strong>Bipartisan Infrastructure Law (2021)</strong> recognizes incarcerated individuals as one of eight "Covered Populations" under the Digital Equity Act, creating unprecedented funding opportunities for correctional education programs.</p>
+
+            <div class="columns">
+              <div class="column card">
+                <h3 style="color: var(--accent-success);">Federal Support</h3>
+                <ul>
+                  <li>$2.75 billion for Digital Equity programs</li>
+                  <li>Incarcerated individuals explicitly included</li>
+                  <li>State planning grants available now</li>
+                </ul>
+              </div>
+              <div class="column card">
+                <h3 style="color: var(--accent-info);">State Requirements</h3>
+                <ul>
+                  <li>Must address all Covered Populations</li>
+                  <li>Measurable objectives required</li>
+                  <li>Digital literacy outcomes tracked</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">NTIA Digital Equity Resources</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <p>The National Telecommunications and Information Administration (NTIA) has published specific guidance for serving incarcerated populations:</p>
+                  <ul>
+                    <li><strong>Educational access:</strong> Remote learning for GED and certifications</li>
+                    <li><strong>Workforce preparation:</strong> Skills training for reentry</li>
+                    <li><strong>Essential services:</strong> Digital skills for vital document access</li>
+                    <li><strong>Healthcare:</strong> Telehealth continuity of care</li>
+                  </ul>
+                  <p class="text-muted" style="font-size: 0.8rem;">
+                    Source: <a href="https://broadbandusa.ntia.gov/sites/default/files/2023-07/Internet_for_All_Serving_Incarcerated_Individuals.pdf" target="_blank" class="citation-link">NTIA Internet for All: Serving Incarcerated Individuals (2023)</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 5: Transformation Framework -->
+          <section>
+            <h2>Digital Transformation Framework</h2>
+            <p>A comprehensive approach to modernizing corrections through three interconnected pillars:</p>
+
+            <div class="visual-flow" style="flex-direction: column; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+                <div class="flow-section" style="background: rgba(208, 144, 255, 0.2); padding: 1rem; border-radius: 8px; border-left: 4px solid #d090ff;">
+                  <h4 style="color: #d090ff; margin-bottom: 0.5rem;">Pillar 1: Learning</h4>
+                  <div class="flow-items" style="flex-direction: row; gap: 0.5rem;">
+                    <span class="flow-tag" style="background: #d090ff; color: #000;">Basic Literacy</span>
+                    <span style="color: #65657a;">→</span>
+                    <span class="flow-tag" style="background: #d090ff; color: #000;">Online Education</span>
+                    <span style="color: #65657a;">→</span>
+                    <span class="flow-tag" style="background: #d090ff; color: #000;">Certifications</span>
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: center; color: #65657a; font-size: 1.5rem;">↓</div>
+              <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+                <div class="flow-section" style="background: rgba(69, 208, 255, 0.2); padding: 1rem; border-radius: 8px; border-left: 4px solid #45d0ff;">
+                  <h4 style="color: #45d0ff; margin-bottom: 0.5rem;">Pillar 2: Workforce</h4>
+                  <div class="flow-items" style="flex-direction: row; gap: 0.5rem;">
+                    <span class="flow-tag" style="background: #45d0ff; color: #000;">Industry Certs</span>
+                    <span style="color: #65657a;">→</span>
+                    <span class="flow-tag" style="background: #45d0ff; color: #000;">Remote Training</span>
+                    <span style="color: #65657a;">→</span>
+                    <span class="flow-tag" style="background: #45d0ff; color: #000;">Portfolio</span>
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: center; color: #65657a; font-size: 1.5rem;">↓</div>
+              <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+                <div class="flow-section" style="background: rgba(85, 240, 154, 0.2); padding: 1rem; border-radius: 8px; border-left: 4px solid #55f09a;">
+                  <h4 style="color: #55f09a; margin-bottom: 0.5rem;">Pillar 3: Reentry</h4>
+                  <div class="flow-items" style="flex-direction: row; gap: 0.5rem;">
+                    <span class="flow-tag" style="background: #55f09a; color: #000;">Job Apps</span>
+                    <span style="color: #65657a;">→</span>
+                    <span class="flow-tag" style="background: #55f09a; color: #000;">Banking</span>
+                    <span style="color: #65657a;">→</span>
+                    <span class="flow-tag" style="background: #55f09a; color: #000;">Gov Services</span>
+                    <span style="color: #65657a;">→</span>
+                    <span class="flow-tag" style="background: #55f09a; color: #000;">Success!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="diagram-caption">Three-Pillar Transformation: Sequential skill-building for successful reentry</p>
+          </section>
+
+          <!-- Slide 6: Digital Learning -->
+          <section>
+            <h2>Pillar 1: Digital Learning</h2>
+            <p>Building foundational digital skills that mirror what individuals will encounter in everyday life post-release.</p>
+
+            <div class="columns">
+              <div class="column">
+                <h3>Core Competencies</h3>
+                <ul>
+                  <li>Computer basics and operating systems</li>
+                  <li>Email communication and etiquette</li>
+                  <li>Internet navigation and safety</li>
+                  <li>Word processing and spreadsheets</li>
+                  <li>Video conferencing tools</li>
+                </ul>
+              </div>
+              <div class="column">
+                <h3>Success Metrics</h3>
+                <table style="margin-top: 0;">
+                  <tr><th>Metric</th><th>Target</th></tr>
+                  <tr><td>Basic literacy completion</td><td>85%</td></tr>
+                  <tr><td>GED via digital platform</td><td>60%</td></tr>
+                  <tr><td>Post-secondary enrollment</td><td>25%</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">Evidence: Education Reduces Recidivism</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <p>The RAND Corporation's landmark meta-analysis found:</p>
+                  <ul>
+                    <li>Inmates who participate in educational programs have <strong>43% lower odds of recidivating</strong></li>
+                    <li>Odds of obtaining employment post-release are <strong>13% higher</strong> for those who participated</li>
+                    <li>Every <strong>$1 invested in correctional education saves $4-5</strong> in reincarceration costs</li>
+                  </ul>
+                  <p class="text-muted" style="font-size: 0.8rem;">
+                    Source: <a href="https://bja.ojp.gov/sites/g/files/xyckuh186/files/Publications/RAND_Correctional-Education-Meta-Analysis.pdf" target="_blank" class="citation-link">Davis, L.M. et al. (2013). Evaluating the Effectiveness of Correctional Education. RAND Corporation.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 7: Workforce Development -->
+          <section>
+            <h2>Pillar 2: Workforce Development</h2>
+            <p>Preparing incarcerated individuals for careers in growing industries with substantial labor shortages.</p>
+
+            <div class="pathway-grid">
+              <div class="pathway-card" style="border-left-color: #d090ff;">
+                <h5>IT Support</h5>
+                <p>CompTIA A+ Certification</p>
+                <p class="salary">→ Help Desk: $35-45K</p>
+              </div>
+              <div class="pathway-card" style="border-left-color: #d090ff;">
+                <h5>Cybersecurity</h5>
+                <p>Security+ Certification</p>
+                <p class="salary">→ Security Analyst: $50-70K</p>
+              </div>
+              <div class="pathway-card" style="border-left-color: #45d0ff;">
+                <h5>Data Entry</h5>
+                <p>MS Office Certification</p>
+                <p class="salary">→ Admin: $30-40K</p>
+              </div>
+              <div class="pathway-card" style="border-left-color: #45d0ff;">
+                <h5>Customer Service</h5>
+                <p>Communication Training</p>
+                <p class="salary">→ Call Center: $28-35K</p>
+              </div>
+            </div>
+            <p class="diagram-caption">Career Pathways: Industry certifications lead to living-wage employment</p>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">Industry Demand for Second Chance Hiring</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <p>Major employers are actively recruiting formerly incarcerated individuals:</p>
+                  <ul>
+                    <li><strong>1.9 million</strong> unfilled jobs in industries where formerly incarcerated commonly work</li>
+                    <li><strong>93%</strong> of formerly incarcerated individuals ages 25-44 are actively seeking work</li>
+                    <li><strong>66%</strong> of employees express pride in working for companies with second-chance programs</li>
+                  </ul>
+                  <p class="text-muted" style="font-size: 0.8rem;">
+                    Source: <a href="https://www.uschamber.com/workforce/data-deep-dive-the-workforce-impact-of-second-chance-hiring-3" target="_blank" class="citation-link">U.S. Chamber of Commerce: The Workforce Impact of Second Chance Hiring (2024)</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 8: Reentry Preparation -->
+          <section>
+            <h2>Pillar 3: Reentry Preparation</h2>
+            <p>Practical digital skills for navigating daily life in a connected world.</p>
+
+            <div class="columns">
+              <div class="column card">
+                <h3 style="color: var(--accent-purple);">Essential Digital Tasks</h3>
+                <ul>
+                  <li>Online job applications (Indeed, LinkedIn)</li>
+                  <li>Digital banking and bill pay</li>
+                  <li>Government services (DMV, benefits)</li>
+                  <li>Healthcare portals and telehealth</li>
+                  <li>Housing applications</li>
+                </ul>
+              </div>
+              <div class="column card">
+                <h3 style="color: var(--accent-teal);">Digital Safety</h3>
+                <ul>
+                  <li>Password management</li>
+                  <li>Recognizing scams and phishing</li>
+                  <li>Privacy settings and data protection</li>
+                  <li>Safe social media practices</li>
+                  <li>Financial fraud prevention</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">The First 30 Days: Critical Window</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <p>Research shows the first month after release is critical:</p>
+                  <ul>
+                    <li><strong>6+ months</strong> average time to find first job post-release</li>
+                    <li><strong>30%+</strong> unemployment rate in first two years after release</li>
+                    <li><strong>60%+</strong> were employed within 30 days of arrest (demonstrating work capability)</li>
+                  </ul>
+                  <p>Digital preparedness can dramatically reduce the job search timeline by enabling immediate engagement with online job markets.</p>
+                  <p class="text-muted" style="font-size: 0.8rem;">
+                    Sources: <a href="https://www.prisonpolicy.org/blog/2022/02/08/employment/" target="_blank" class="citation-link">Prison Policy Initiative (2022)</a> |
+                    <a href="https://www.uschamber.com/workforce/data-deep-dive-the-workforce-impact-of-second-chance-hiring-3" target="_blank" class="citation-link">U.S. Chamber of Commerce</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 9: The ROI Case -->
+          <section>
+            <h2>The ROI Case: Education is an Investment</h2>
+            <p>Data from the Washington State Institute for Public Policy demonstrates the cost-effectiveness of correctional education programs.</p>
+
+            <div class="chart-container">
+              <div class="chart-title">Return on Investment by Program Type</div>
+              <div class="chart-wrapper">
+                <canvas id="roiChart"></canvas>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <span class="collapsible-title">Detailed Cost-Benefit Analysis</span>
+                <svg class="collapsible-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="collapsible-content">
+                <div class="collapsible-body">
+                  <table>
+                    <thead>
+                      <tr><th>Program</th><th>Cost per Participant</th><th>Total Benefit</th><th>Return per $1 Invested</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Basic Education</td><td>$1,972</td><td>$9,176</td><td><strong>$5.65</strong></td></tr>
+                      <tr><td>Vocational Training</td><td>$1,960</td><td>$12,017</td><td><strong>$7.13</strong></td></tr>
+                      <tr><td>Post-Secondary Education</td><td>$2,260</td><td>$30,528</td><td><strong>$14.51</strong></td></tr>
+                      <tr><td>Correctional Industries</td><td>$777</td><td>$4,394</td><td><strong>$6.65</strong></td></tr>
+                    </tbody>
+                  </table>
+                  <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;"><em>Example: For every $1 invested in post-secondary education, society receives $14.51 in benefits (reduced incarceration costs + increased tax revenue).</em></p>
+                  <p class="text-muted" style="font-size: 0.8rem;">
+                    Source: <a href="https://www.wsipp.wa.gov/BenefitCost/Program/735" target="_blank" class="citation-link">Washington State Institute for Public Policy Benefit-Cost Analysis</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 10: Implementation -->
+          <section>
+            <h2>Implementation Roadmap</h2>
+            <p>A phased approach to digital transformation in correctional facilities.</p>
+
+            <!-- Implementation Timeline - HTML alternative to Mermaid -->
+            <div class="phase-timeline">
+              <div class="phase-item" style="border-color: #5c9eff;">
+                <h4 style="color: #5c9eff; margin: 0 0 0.5rem;">Phase 1</h4>
+                <p style="font-size: 0.8rem; margin: 0; color: var(--text-secondary);">Assessment → Security → Pilot Selection</p>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Months 1-4</span>
+              </div>
+              <div class="phase-item" style="border-color: #d090ff;">
+                <h4 style="color: #d090ff; margin: 0 0 0.5rem;">Phase 2</h4>
+                <p style="font-size: 0.8rem; margin: 0; color: var(--text-secondary);">Devices → Staff Training → Curriculum</p>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Months 5-9</span>
+              </div>
+              <div class="phase-item" style="border-color: #45d0ff;">
+                <h4 style="color: #45d0ff; margin: 0 0 0.5rem;">Phase 3</h4>
+                <p style="font-size: 0.8rem; margin: 0; color: var(--text-secondary);">Evaluation → Rollout → Partnerships</p>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Months 10-14</span>
+              </div>
+              <div class="phase-item" style="border-color: #55f09a;">
+                <h4 style="color: #55f09a; margin: 0 0 0.5rem;">Phase 4</h4>
+                <p style="font-size: 0.8rem; margin: 0; color: var(--text-secondary);">Statewide → Continuous Improvement</p>
+                <span style="font-size: 0.7rem; color: var(--text-muted);">Months 15-18+</span>
+              </div>
+            </div>
+            <p class="diagram-caption">18-Month Implementation Plan: From pilot to statewide scale</p>
+
+            <div class="columns" style="margin-top: 1.5rem;">
+              <div class="column card">
+                <h3 style="color: var(--accent-warning);">Key Success Factors</h3>
+                <ul>
+                  <li>Executive sponsorship</li>
+                  <li>Staff buy-in and training</li>
+                  <li>Robust security controls</li>
+                  <li>Industry partnerships</li>
+                </ul>
+              </div>
+              <div class="column card">
+                <h3 style="color: var(--accent-success);">Funding Sources</h3>
+                <ul>
+                  <li>Digital Equity Act grants</li>
+                  <li>Department of Education</li>
+                  <li>Private foundations</li>
+                  <li>Corporate partnerships</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Slide 11: Call to Action -->
+          <section>
+            <h2>Call to Action</h2>
+            <p style="font-size: 1.25rem;">Modernization is not a luxury-it's a necessity for reducing recidivism and giving incarcerated individuals a genuine second chance.</p>
+
+            <!-- Decision Tree - HTML alternative to Mermaid -->
+            <div class="visual-flow" style="flex-direction: column; gap: 1.5rem;">
+              <div class="flow-tag" style="background: #5c9eff; color: #000; font-size: 1rem; padding: 0.75rem 1.5rem;">Today's Decision: Invest in Transformation?</div>
+              <div style="display: flex; gap: 3rem; justify-content: center; width: 100%;">
+                <div style="flex: 1; max-width: 280px;">
+                  <div class="flow-tag" style="background: #55f09a; color: #000; margin-bottom: 0.75rem; display: block; text-align: center;">✓ Yes: Invest</div>
+                  <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: rgba(85, 240, 154, 0.2); border: 1px solid #55f09a;">Skilled Workforce</div>
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: rgba(85, 240, 154, 0.2); border: 1px solid #55f09a;">Lower Recidivism</div>
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: rgba(85, 240, 154, 0.2); border: 1px solid #55f09a;">Safer Communities</div>
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: #55f09a; color: #000; font-weight: 600;">Economic Growth</div>
+                  </div>
+                </div>
+                <div style="flex: 1; max-width: 280px;">
+                  <div class="flow-tag" style="background: #ff7878; color: #fff; margin-bottom: 0.75rem; display: block; text-align: center;">✗ No: Status Quo</div>
+                  <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: rgba(255, 120, 120, 0.2); border: 1px solid #ff7878;">Continued Cycle</div>
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: rgba(255, 120, 120, 0.2); border: 1px solid #ff7878;">Higher Costs</div>
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: rgba(255, 120, 120, 0.2); border: 1px solid #ff7878;">Unsafe Communities</div>
+                    <span class="flow-arrow" style="font-size: 1.2rem;">↓</span>
+                    <div class="flow-tag" style="background: #ff7878; color: #fff; font-weight: 600;">$80B+ Spending</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="diagram-caption">The Choice: Investment in transformation vs. continued cycle of failure</p>
+
+            <blockquote style="margin-top: 2rem; border-left-color: var(--accent-success);">
+              <strong>Next Steps:</strong>
+              <ol style="margin-top: 0.5rem;">
+                <li>Schedule a facility assessment with our team</li>
+                <li>Review Digital Equity Act grant opportunities</li>
+                <li>Identify pilot facility and champion</li>
+                <li>Begin stakeholder engagement</li>
+              </ol>
+            </blockquote>
+          </section>
+
+          <!-- Slide 12: Sources -->
+          <section>
+            <h2>Sources & Further Reading</h2>
+
+            <h3>Primary Research</h3>
+            <ul>
+              <li><a href="https://bja.ojp.gov/sites/g/files/xyckuh186/files/Publications/RAND_Correctional-Education-Meta-Analysis.pdf" target="_blank">RAND Corporation - Evaluating the Effectiveness of Correctional Education: A Meta-Analysis (2013)</a></li>
+              <li><a href="https://bjs.ojp.gov/content/pub/pdf/18upr9yfup0514.pdf" target="_blank">Bureau of Justice Statistics - 2018 Update on Prisoner Recidivism: A 9-Year Follow-up Period</a></li>
+              <li><a href="https://www.wsipp.wa.gov/BenefitCost/Program/735" target="_blank">Washington State Institute for Public Policy - Correctional Education Benefit-Cost Analysis</a></li>
+            </ul>
+
+            <h3>Policy & Implementation</h3>
+            <ul>
+              <li><a href="https://broadbandusa.ntia.gov/sites/default/files/2023-07/Internet_for_All_Serving_Incarcerated_Individuals.pdf" target="_blank">NTIA - Internet for All: Serving Incarcerated Individuals (2023)</a></li>
+              <li><a href="https://www.pew.org/en/research-and-analysis/articles/2023/12/20/how-the-us-reversed-prison-population-growth" target="_blank">Pew Charitable Trusts - How the U.S. Reversed Prison Population Growth</a></li>
+            </ul>
+
+            <h3>Employment & Workforce</h3>
+            <ul>
+              <li><a href="https://www.prisonpolicy.org/reports/outofwork.html" target="_blank">Prison Policy Initiative - Out of Prison & Out of Work: Unemployment among formerly incarcerated people</a></li>
+              <li><a href="https://www.uschamber.com/workforce/data-deep-dive-the-workforce-impact-of-second-chance-hiring-3" target="_blank">U.S. Chamber of Commerce - The Workforce Impact of Second Chance Hiring (2024)</a></li>
+            </ul>
+          </section>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="nav-search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+      <div class="nav-search-box" onclick="event.stopPropagation()">
+        <input type="text" class="nav-search-input" placeholder="Search slides..." id="searchInput" oninput="handleSearch(this.value)">
+        <div class="nav-search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <button class="lightbox-close" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <img class="lightbox-image" id="lightboxImage" src="" alt="">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- Reveal.js Core -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+
+  <script>
+    // Initialize Mermaid with dark theme
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      securityLevel: 'loose',
+      themeVariables: {
+        primaryColor: '#5c9eff',
+        primaryTextColor: '#f2f2f8',
+        primaryBorderColor: '#5c9eff',
+        lineColor: '#65657a',
+        secondaryColor: '#d090ff',
+        tertiaryColor: '#151520',
+        background: '#0e0e18',
+        mainBkg: '#0e0e18',
+        secondBkg: '#151520',
+        nodeBorder: '#5c9eff',
+        clusterBkg: '#151520',
+        clusterBorder: '#5c9eff',
+        titleColor: '#f2f2f8',
+        edgeLabelBackground: 'transparent',
+        nodeTextColor: '#f2f2f8'
+      },
+      flowchart: {
+        curve: 'basis',
+        padding: 20,
+        htmlLabels: true,
+        useMaxWidth: true
+      }
+    });
+
+    // Reveal.js Initialization
+    const deck = new Reveal({
+      hash: true,
+      history: true,
+      slideNumber: false,
+      controls: false,
+      progress: false,
+      center: false,
+      embedded: true,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      width: '100%',
+      height: '100%',
+      margin: 0,
+      minScale: 0.2,
+      maxScale: 2.0
+    });
+
+    deck.initialize().then(() => {
+      deck.on('slidechanged', updateProgress);
+      updateProgress();
+
+      // Force scroll styles after Reveal.js initializes
+      document.querySelectorAll('.reveal .slides section').forEach(slide => {
+        slide.style.overflowY = 'auto';
+        slide.style.overflowX = 'hidden';
+      });
+    });
+
+    // Navigation Functions
+    function updateProgress() {
+      const indices = deck.getIndices();
+      const total = deck.getTotalSlides();
+      const current = indices.h + 1;
+      const progress = (current / total) * 100;
+
+      document.querySelector('.nav-progress-fill').style.setProperty('--progress', `${progress}%`);
+      document.querySelector('.current-slide').textContent = current;
+      document.querySelector('.total-slides').textContent = total;
+
+      document.querySelectorAll('.nav-section').forEach((section, i) => {
+        section.classList.toggle('active', i === indices.h);
+      });
+    }
+
+    function toggleNav() {
+      document.querySelector('.deck-container').classList.toggle('nav-collapsed');
+    }
+
+    function toggleMobileNav() {
+      document.querySelector('.deck-nav').classList.toggle('open');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    function goToSlide(index) {
+      deck.slide(index);
+    }
+
+    // Search Functions
+    const slideContent = [
+      {index: 0, title: 'Title', content: 'Digital Transformation Corrections Normalizing Modernization', excerpt: 'Digital Transformation in Corrections'},
+      {index: 1, title: 'Key Insight', content: '83% Return Prison 43% Reduction Education RAND BJS', excerpt: 'The Key Insight'},
+      {index: 2, title: 'The Problem', content: 'Recidivism Cycle Digital Skills Employment 600000 27% unemployment', excerpt: 'A Cycle of Failure'},
+      {index: 3, title: 'The Analog Barrier', content: 'Paper Forms Internet Access Digital Divide Gap $35000 $80 billion', excerpt: 'The Analog Barrier'},
+      {index: 4, title: 'The Opportunity', content: 'Digital Equity Act Bipartisan Infrastructure $2.75 billion NTIA', excerpt: 'Digital Equity Act'},
+      {index: 5, title: 'Transformation Framework', content: 'Digital Learning Workforce Development Reentry Preparation Three Pillars', excerpt: 'Digital Transformation Framework'},
+      {index: 6, title: 'Digital Learning', content: 'Basic Literacy GED Computer Skills RAND Education Recidivism 43%', excerpt: 'Pillar 1: Digital Learning'},
+      {index: 7, title: 'Workforce Development', content: 'IT Support Cybersecurity Certifications CompTIA Microsoft Career', excerpt: 'Pillar 2: Workforce Development'},
+      {index: 8, title: 'Reentry Preparation', content: 'Job Applications Digital Banking Healthcare Housing First 30 Days', excerpt: 'Pillar 3: Reentry Preparation'},
+      {index: 9, title: 'The ROI Case', content: 'ROI Investment Education WSIPP $14.51 $7.13 Cost Benefit', excerpt: 'Education is an Investment'},
+      {index: 10, title: 'Implementation', content: 'Roadmap Timeline Pilot Phase Infrastructure Funding', excerpt: 'Implementation Roadmap'},
+      {index: 11, title: 'Call to Action', content: 'Decision Investment Transform Recidivism Communities', excerpt: 'Call to Action'},
+      {index: 12, title: 'Sources', content: 'RAND BJS WSIPP NTIA Pew Prison Policy US Chamber Research', excerpt: 'Sources & Further Reading'}
+    ];
+
+    function openSearch() {
+      document.getElementById('searchOverlay').classList.add('open');
+      document.getElementById('searchInput').focus();
+    }
+
+    function closeSearch(event) {
+      if (event.target.id === 'searchOverlay') {
+        document.getElementById('searchOverlay').classList.remove('open');
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchResults').innerHTML = '';
+      }
+    }
+
+    function handleSearch(query) {
+      const results = document.getElementById('searchResults');
+      if (!query.trim()) {
+        results.innerHTML = '';
+        return;
+      }
+
+      const matches = slideContent.filter(slide =>
+        slide.title.toLowerCase().includes(query.toLowerCase()) ||
+        slide.content.toLowerCase().includes(query.toLowerCase())
+      );
+
+      results.innerHTML = matches.map(match => `
+        <div class="nav-search-result" onclick="goToSlideAndClose(${match.index})">
+          <div class="nav-search-result-title">${highlightMatch(match.title, query)}</div>
+          <div class="nav-search-result-context">${highlightMatch(match.excerpt, query)}</div>
+        </div>
+      `).join('');
+    }
+
+    function highlightMatch(text, query) {
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
+    }
+
+    function goToSlideAndClose(index) {
+      deck.slide(index);
+      document.getElementById('searchOverlay').classList.remove('open');
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchResults').innerHTML = '';
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
+      if (e.key === 'Escape') {
+        closeSearch({ target: { id: 'searchOverlay' } });
+      }
+    });
+
+    // Collapsibles
+    document.querySelectorAll('.collapsible-header').forEach(header => {
+      header.setAttribute('tabindex', '0');
+      header.setAttribute('role', 'button');
+      header.setAttribute('aria-expanded', 'false');
+
+      const toggle = () => {
+        const isOpen = header.parentElement.classList.toggle('open');
+        header.setAttribute('aria-expanded', isOpen);
+      };
+
+      header.addEventListener('click', toggle);
+      header.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+
+    // Enable scrolling on slides
+    document.querySelectorAll('.reveal .slides section').forEach(slide => {
+      slide.addEventListener('wheel', (e) => {
+        const scrollable = slide.scrollHeight > slide.clientHeight;
+        if (scrollable) {
+          e.stopPropagation();
+        }
+      }, { passive: false });
+    });
+
+    document.querySelectorAll('.collapsible-content').forEach(content => {
+      content.addEventListener('wheel', (e) => {
+        e.stopPropagation();
+      }, { passive: false });
+    });
+
+    // Lightbox
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    // Chart.js Initialization
+    const roiCtx = document.getElementById('roiChart');
+    if (roiCtx) {
+      new Chart(roiCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Basic Education', 'Vocational Training', 'Post-Secondary', 'Correctional Industries'],
+          datasets: [{
+            label: 'ROI per $1 Invested',
+            data: [5.65, 7.13, 14.51, 6.65],
+            backgroundColor: ['#5c9eff', '#d090ff', '#55f09a', '#45d0ff'],
+            borderColor: ['#4a8ee0', '#b060dd', '#40c080', '#30b0e0'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) { return '$' + ctx.raw.toFixed(2) + ' return per $1 invested'; }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 18,
+              title: { display: true, text: 'Return per $1 Invested', color: '#a5a5b8' },
+              grid: { color: '#2a2a45' },
+              ticks: { color: '#9090a0' }
+            },
+            x: {
+              title: { display: true, text: 'Program Type', color: '#a5a5b8' },
+              grid: { color: '#2a2a45' },
+              ticks: { color: '#9090a0' }
+            }
+          }
+        }
+      });
+    }
+
+    // Touch gestures
+    (function() {
+      let touchStartX = 0;
+      let touchEndX = 0;
+      const minSwipeDistance = 50;
+      const maxSwipeTime = 300;
+      let touchStartTime = 0;
+
+      const content = document.querySelector('.deck-content');
+
+      content.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartTime = Date.now();
+      }, { passive: true });
+
+      content.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const deltaTime = Date.now() - touchStartTime;
+        const deltaX = touchEndX - touchStartX;
+
+        if (deltaTime < maxSwipeTime && Math.abs(deltaX) > minSwipeDistance) {
+          if (deltaX > 0) {
+            deck.prev();
+          } else {
+            deck.next();
+          }
+        }
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
