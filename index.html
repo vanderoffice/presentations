@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presentations | VanderOffice</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,15 +12,19 @@
 
   <style>
     :root {
+      /* California Modern Palette */
       --bg-primary: #08080f;
       --bg-secondary: #0e0e18;
       --bg-elevated: #1a1a28;
       --text-primary: #f2f2f8;
       --text-secondary: #a5a5b8;
       --text-muted: #65657a;
-      --accent-primary: #5c9eff;
-      --accent-success: #55f09a;
-      --accent-purple: #d090ff;
+
+      /* Accent colors from California seal */
+      --accent-blue: #4a9eff;
+      --accent-gold: #d4a04a;
+      --accent-teal: #4a9a7a;
+      --accent-burgundy: #a85454;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,21 +47,38 @@
       margin-bottom: 3rem;
       padding-bottom: 2rem;
       border-bottom: 1px solid var(--bg-elevated);
+      position: relative;
+    }
+
+    .header-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 180px;
+      opacity: 0.08;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="none" stroke="%234a9eff" stroke-width="2"/><text x="50" y="55" text-anchor="middle" font-size="24" fill="%234a9eff">CA</text></svg>') center/contain no-repeat;
+      pointer-events: none;
     }
 
     h1 {
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      position: relative;
+      z-index: 1;
     }
 
     .subtitle {
       color: var(--text-secondary);
       font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
     }
 
     .presentations {
@@ -68,6 +89,7 @@
     .presentation-card {
       background: var(--bg-secondary);
       border: 1px solid var(--bg-elevated);
+      border-left: 3px solid var(--accent-gold);
       border-radius: 12px;
       padding: 1.5rem;
       text-decoration: none;
@@ -77,9 +99,10 @@
     }
 
     .presentation-card:hover {
-      border-color: var(--accent-primary);
+      border-color: var(--accent-blue);
+      border-left-color: var(--accent-gold);
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(92, 158, 255, 0.15);
+      box-shadow: 0 8px 30px rgba(74, 158, 255, 0.15);
     }
 
     .card-header {
@@ -87,6 +110,7 @@
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 0.75rem;
+      gap: 1rem;
     }
 
     .card-title {
@@ -95,10 +119,24 @@
       color: var(--text-primary);
     }
 
-    .card-date {
-      font-size: 0.85rem;
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .card-slides {
+      font-size: 0.8rem;
+      color: var(--accent-gold);
+      font-weight: 500;
+    }
+
+    .card-dates {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      white-space: nowrap;
+      text-align: right;
     }
 
     .card-description {
@@ -122,10 +160,24 @@
       color: var(--text-muted);
     }
 
-    .tag.corrections { background: rgba(92, 158, 255, 0.15); color: var(--accent-primary); }
-    .tag.technical { background: rgba(208, 144, 255, 0.15); color: var(--accent-purple); }
-    .tag.ai { background: rgba(85, 240, 154, 0.15); color: var(--accent-success); }
-    .tag.government { background: rgba(69, 208, 255, 0.15); color: #45d0ff; }
+    .tag.corrections { background: rgba(74, 158, 255, 0.15); color: var(--accent-blue); }
+    .tag.technical { background: rgba(74, 154, 122, 0.15); color: var(--accent-teal); }
+    .tag.ai { background: rgba(212, 160, 74, 0.15); color: var(--accent-gold); }
+    .tag.government { background: rgba(168, 84, 84, 0.15); color: #c87070; }
+
+    .badge-new {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      background: var(--accent-teal);
+      color: var(--bg-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
 
     footer {
       text-align: center;
@@ -137,7 +189,7 @@
     }
 
     footer a {
-      color: var(--accent-primary);
+      color: var(--accent-blue);
       text-decoration: none;
     }
 
@@ -145,41 +197,58 @@
       text-decoration: underline;
     }
 
+    kbd {
+      background: var(--bg-elevated);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      border: 1px solid var(--text-muted);
+    }
+
     @media (max-width: 600px) {
       body { padding: 1rem; }
       h1 { font-size: 1.75rem; }
       .card-header { flex-direction: column; gap: 0.5rem; }
+      .card-meta { align-items: flex-start; }
+      .header-seal { width: 120px; height: 120px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
+      <div class="header-seal"></div>
       <h1>Presentations</h1>
-      <p class="subtitle">Interactive slide decks built with Reveal.js</p>
+      <p class="subtitle">Interactive slide decks for California state government</p>
     </header>
 
     <div class="presentations">
 
-      <a href="tea-cabinet-briefing-2026-01.html" class="presentation-card">
+      <a href="rag-quality-assurance-2026-01.html" class="presentation-card">
         <div class="card-header">
-          <span class="card-title">Technical Executive Standards Initiative</span>
-          <span class="card-date">January 2026</span>
+          <span class="card-title">Quality Assurance for RAG Knowledge Bases<span class="badge-new">Updated</span></span>
+          <div class="card-meta">
+            <span class="card-slides">16 slides</span>
+            <span class="card-dates">Created Jan 21 · Updated Jan 25</span>
+          </div>
         </div>
         <p class="card-description">
-          Cabinet briefing on the Technical Executive Assignment (TEA) framework. Establishes
-          verified competence requirements for CIO, CISO, CDO, and CTO positions in California state government.
+          Best practices for ensuring data quality in RAG systems: deduplication, validation,
+          embedding integrity, and testing methodologies for AI-powered knowledge bases.
         </p>
         <div class="card-tags">
-          <span class="tag government">Government</span>
+          <span class="tag ai">AI/ML</span>
           <span class="tag technical">Technical</span>
         </div>
       </a>
 
       <a href="claude-code-deployment-swrcb-2026-01-24.html" class="presentation-card">
         <div class="card-header">
-          <span class="card-title">Claude Code Deployment at SWRCB</span>
-          <span class="card-date">January 2026</span>
+          <span class="card-title">Claude Code Deployment at SWRCB<span class="badge-new">New</span></span>
+          <div class="card-meta">
+            <span class="card-slides">14 slides</span>
+            <span class="card-dates">Created Jan 25</span>
+          </div>
         </div>
         <p class="card-description">
           Executive briefing for deploying AI coding assistants in California state government.
@@ -192,25 +261,31 @@
         </div>
       </a>
 
-      <a href="rag-quality-assurance-2026-01.html" class="presentation-card">
+      <a href="tea-cabinet-briefing-2026-01.html" class="presentation-card">
         <div class="card-header">
-          <span class="card-title">Quality Assurance for RAG Knowledge Bases</span>
-          <span class="card-date">January 2026</span>
+          <span class="card-title">Technical Executive Standards Initiative<span class="badge-new">New</span></span>
+          <div class="card-meta">
+            <span class="card-slides">15 slides</span>
+            <span class="card-dates">Created Jan 25</span>
+          </div>
         </div>
         <p class="card-description">
-          Best practices for ensuring data quality in RAG systems: deduplication, validation,
-          embedding integrity, and testing methodologies for AI-powered knowledge bases.
+          Cabinet briefing on the Technical Executive Assignment (TEA) framework. Establishes
+          verified competence requirements for CIO, CISO, CDO, and CTO positions in California state government.
         </p>
         <div class="card-tags">
-          <span class="tag ai">AI/ML</span>
+          <span class="tag government">Government</span>
           <span class="tag technical">Technical</span>
         </div>
       </a>
 
       <a href="corrections-digital-transformation-2026-01.html" class="presentation-card">
         <div class="card-header">
-          <span class="card-title">Digital Transformation in Corrections</span>
-          <span class="card-date">January 2026</span>
+          <span class="card-title">Digital Transformation in Corrections<span class="badge-new">Updated</span></span>
+          <div class="card-meta">
+            <span class="card-slides">13 slides</span>
+            <span class="card-dates">Created Jan 20 · Updated Jan 25</span>
+          </div>
         </div>
         <p class="card-description">
           Strategic framework for modernizing correctional facility operations through
@@ -225,7 +300,7 @@
     </div>
 
     <footer>
-      <p>Use arrow keys or swipe to navigate presentations &bull; Press <kbd>?</kbd> for help</p>
+      <p>Use arrow keys or swipe to navigate presentations · Press <kbd>?</kbd> for help</p>
       <p style="margin-top: 0.5rem;">
         <a href="https://github.com/vanderoffice/presentations">View on GitHub</a>
       </p>
