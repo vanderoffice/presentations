@@ -241,8 +241,12 @@
 
     /* Title slide styling */
     .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; }
-    .title-slide h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-    .title-slide .subtitle { font-size: 1.5rem; color: var(--text-accent); margin-bottom: 2rem; }
+.title-slide h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #d8d8e8; }
+.title-slide .subtitle { font-size: 1.5rem; color: #d4a04a; margin-bottom: 0.5rem; }
+.title-slide .subtitle::after { content: ""; display: block; width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #d4a04a, transparent); margin: 1rem auto 1.5rem; }
+
+    
+    
     .title-slide .thesis { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; text-align: center; }
 
     @media (max-width: 768px) {

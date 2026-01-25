@@ -535,21 +535,10 @@ tr:hover td {
   text-align: center;
   min-height: 100vh;
 }
+.title-slide h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #d8d8e8; }
+.title-slide .subtitle { font-size: 1.5rem; color: #d4a04a; margin-bottom: 0.5rem; }
+.title-slide .subtitle::after { content: ""; display: block; width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #d4a04a, transparent); margin: 1rem auto 1.5rem; }
 
-.title-slide h1 {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.title-slide .subtitle {
-  font-size: 1.5rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-}
     /* Title Slide with California Seal */
     .title-slide .title-content {
       position: relative;
@@ -563,7 +552,6 @@ tr:hover td {
       border-radius: 50%;
       filter: brightness(0.9);
     }
-
 
 .title-slide .meta {
   color: var(--text-muted);
@@ -770,9 +758,7 @@ tr:hover td {
     font-size: 2.5rem;
   }
 
-  .title-slide h1 {
-    font-size: 2rem;
-  }
+  
 
   .metric-grid {
     grid-template-columns: repeat(2, 1fr);

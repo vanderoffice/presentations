@@ -591,20 +591,13 @@
       justify-content: center;
       min-height: 100%;
     }
+.title-slide h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #d8d8e8; }
+.title-slide .subtitle { font-size: 1.5rem; color: #d4a04a; margin-bottom: 0.5rem; }
+.title-slide .subtitle::after { content: ""; display: block; width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #d4a04a, transparent); margin: 1rem auto 1.5rem; }
 
-    .title-slide h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    
 
-    .title-slide .subtitle {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      margin-bottom: 3rem;
-    }
+    
     /* Title Slide with California Seal */
     .title-slide .title-content {
       position: relative;
@@ -618,7 +611,6 @@
       border-radius: 50%;
       filter: brightness(0.9);
     }
-
 
     .title-meta {
       display: flex;
@@ -942,7 +934,7 @@
       .reveal .slides section { padding: 1.25rem 1.5rem; }
       .columns { flex-direction: column; }
       .grid-3, .grid-4 { grid-template-columns: 1fr; }
-      .title-slide h1 { font-size: 2rem; }
+      
       .big-number { font-size: 2.5rem; }
       .flow-diagram { flex-direction: column; }
       .flow-arrow { transform: rotate(90deg); }
