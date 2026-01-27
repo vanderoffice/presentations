@@ -173,9 +173,26 @@
 
     /* Reveal Container */
     .reveal-container { flex: 1; position: relative; overflow: hidden; }
-    .reveal { width: 100%; height: 100%; }
+    .reveal {
+      width: 100%;
+      height: 100%;
+      font-family: var(--font-sans);
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      background-color: var(--bg-primary);
+    }
     .reveal .slides { text-align: left; }
-    .reveal .slides section { padding: 2.5rem 3.5rem; }
+    .reveal .slides section {
+      padding: 2.5rem 3.5rem;
+      background-color: var(--bg-primary);
+      height: auto !important;
+      min-height: 100%;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+    }
+    .reveal .slides section::-webkit-scrollbar { width: 8px; }
+    .reveal .slides section::-webkit-scrollbar-track { background: transparent; }
+    .reveal .slides section::-webkit-scrollbar-thumb { background: var(--nav-border); border-radius: 4px; }
 
     /* Typography */
     .reveal h1 { font-size: 2.75rem; font-weight: 700; line-height: 1.15; margin: 0 0 1.5rem 0; color: var(--text-primary); }
@@ -1985,8 +2002,8 @@
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 
   <script>
-    // Initialize Reveal.js
-    Reveal.initialize({
+    // Initialize Reveal.js with proper async pattern
+    const deck = new Reveal({
       hash: true,
       history: true,
       controls: true,
@@ -2003,12 +2020,13 @@
 
     // Navigation
     function goToSlide(index) {
-      Reveal.slide(index);
+      deck.slide(index);
     }
 
     function updateNavigation() {
-      const currentSlide = Reveal.getIndices().h;
-      const totalSlides = Reveal.getTotalSlides();
+      const indices = deck.getIndices();
+      const currentSlide = indices.h;
+      const totalSlides = deck.getTotalSlides();
 
       document.querySelectorAll('.nav-section').forEach((section, i) => {
         section.classList.toggle('active', i === currentSlide);
@@ -2018,9 +2036,22 @@
       document.getElementById('progress-fill').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
     }
 
-    Reveal.on('slidechanged', updateNavigation);
-    updateNavigation();
+    // Initialize and set up event handlers after Reveal is ready
+    deck.initialize().then(() => {
+      deck.on('slidechanged', updateNavigation);
+      updateNavigation();
 
+      // Enable scrolling on slides
+      document.querySelectorAll('.reveal .slides section').forEach(slide => {
+        slide.style.overflowY = 'auto';
+        slide.style.overflowX = 'hidden';
+      });
+
+      // Initialize charts after deck is ready
+      initCharts();
+    });
+
+    function initCharts() {
     // Charts
     Chart.defaults.color = '#a0a0b0';
     Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.08)';
@@ -2084,6 +2115,7 @@
         }
       });
     }
+    } // end initCharts
   </script>
 </body>
 </html>
