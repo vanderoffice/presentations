@@ -1,0 +1,2484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Deck Pipeline">
+  <meta name="color-scheme" content="dark">
+  <title>California Enterprise Modernization Plan</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
+
+  <!-- Reveal.js Core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ============================================
+       CSS Custom Properties
+       ============================================ */
+
+    :root {
+      /* Background colors */
+      --bg-primary: #08080f;
+      --bg-secondary: #0f1019;
+      --bg-tertiary: #161822;
+
+      /* Text colors */
+      --text-primary: #e8e8f0;
+      --text-secondary: #a0a0b0;
+      --text-muted: #606070;
+      --text-accent: #4a9eff;
+
+      /* Accent colors */
+      --accent-primary: #4a9eff;
+      --accent-secondary: #7c3aed;
+      --accent-purple: #d090ff;
+      --accent-teal: #40e0d0;
+      --accent-success: #22c55e;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --gold: #d4a04a;
+
+      /* Navigation */
+      --nav-bg: #0a0a12;
+      --nav-border: rgba(255, 255, 255, 0.08);
+      --nav-hover: rgba(74, 158, 255, 0.1);
+      --nav-active: rgba(74, 158, 255, 0.15);
+
+      /* Callouts */
+      --callout-note-bg: rgba(74, 158, 255, 0.08);
+      --callout-warning-bg: rgba(245, 158, 11, 0.08);
+      --callout-danger-bg: rgba(239, 68, 68, 0.08);
+      --callout-success-bg: rgba(34, 197, 94, 0.08);
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+      --shadow-glow: 0 0 20px rgba(74, 158, 255, 0.15);
+
+      /* Radii */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+
+      /* Typography */
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* ============================================
+       Reset & Base
+       ============================================ */
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-primary);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ============================================
+       Main Layout
+       ============================================ */
+
+    .presentation-wrapper {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ============================================
+       Left Navigation
+       ============================================ */
+
+    .left-nav {
+      width: 280px;
+      min-width: 280px;
+      background: var(--nav-bg);
+      border-right: 1px solid var(--nav-border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 100;
+    }
+
+    .nav-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--nav-border);
+    }
+
+    .nav-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 0.25rem 0;
+      line-height: 1.3;
+    }
+
+    .nav-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .nav-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem 0;
+    }
+
+    .nav-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .nav-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .nav-scroll::-webkit-scrollbar-thumb {
+      background: var(--nav-border);
+      border-radius: 3px;
+    }
+
+    .nav-sections {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-group-header {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 1rem 1.5rem 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .nav-group-header:first-child {
+      margin-top: 0;
+    }
+
+    .nav-section > a {
+      display: block;
+      padding: 0.5rem 1.5rem;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .nav-section > a:hover { background: var(--nav-hover); color: var(--text-primary); }
+    .nav-section.active > a { background: var(--nav-active); color: var(--text-accent); border-left-color: var(--accent-primary); }
+
+    .nav-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--nav-border);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 3px;
+      background: var(--bg-tertiary);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-teal));
+      transition: width 0.3s ease;
+    }
+
+    /* ============================================
+       Reveal Container
+       ============================================ */
+
+    .reveal-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reveal {
+      width: 100%;
+      height: 100%;
+    }
+
+    .reveal .slides {
+      text-align: left;
+    }
+
+    .reveal .slides section {
+      padding: 2.5rem 3.5rem;
+    }
+
+    /* ============================================
+       Typography
+       ============================================ */
+
+    .reveal h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0 0 1.5rem 0;
+      color: var(--text-primary);
+    }
+
+    .reveal h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 1.25rem 0;
+      color: var(--text-primary);
+    }
+
+    .reveal h3 {
+      font-size: 1.375rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+      color: var(--text-primary);
+    }
+
+    .reveal h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem 0;
+      color: var(--text-secondary);
+    }
+
+    .reveal p {
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      margin: 0 0 1.25rem 0;
+      color: var(--text-secondary);
+    }
+
+    .reveal ul, .reveal ol {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0 0 1.25rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .reveal li {
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .reveal li::marker {
+      color: var(--accent-primary);
+    }
+
+    .reveal strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    .small {
+      font-size: 0.875rem;
+    }
+
+    /* ============================================
+       Tables
+       ============================================ */
+
+    .reveal table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9375rem;
+    }
+
+    .reveal th, .reveal td {
+      padding: 0.875rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--nav-border);
+    }
+
+    .reveal th {
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+    }
+
+    .reveal td {
+      color: var(--text-secondary);
+    }
+
+    .reveal tbody tr:hover {
+      background: var(--bg-secondary);
+    }
+
+    /* ============================================
+       Cards & Containers
+       ============================================ */
+
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--nav-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--nav-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value.danger { color: var(--accent-danger); }
+    .stat-value.warning { color: var(--accent-warning); }
+    .stat-value.success { color: var(--accent-success); }
+    .stat-value.gold { color: var(--gold); }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       Layout Utilities
+       ============================================ */
+
+    .columns { display: flex; gap: 2rem; margin: 1.5rem 0; }
+    .column { flex: 1; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    /* ============================================
+       Callouts
+       ============================================ */
+
+    .callout {
+      background: var(--callout-note-bg);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: var(--radius-md);
+      padding: 1.125rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+
+    .callout-danger {
+      border-left-color: var(--accent-danger);
+      background: var(--callout-danger-bg);
+    }
+
+    .callout-warning {
+      border-left-color: var(--accent-warning);
+      background: var(--callout-warning-bg);
+    }
+
+    .callout-success {
+      border-left-color: var(--accent-success);
+      background: var(--callout-success-bg);
+    }
+
+    /* ============================================
+       Charts
+       ============================================ */
+
+    .chart-container {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin: 1.75rem 0;
+      border: 1px solid var(--nav-border);
+    }
+
+    .chart-title {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 280px;
+    }
+
+    /* ============================================
+       Timeline
+       ============================================ */
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-teal));
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.35rem;
+      top: 0.25rem;
+      width: 12px;
+      height: 12px;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      border: 3px solid var(--bg-primary);
+    }
+
+    .timeline-date {
+      font-size: 0.875rem;
+      color: var(--accent-primary);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-desc {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+    }
+
+    /* ============================================
+       Flow Diagrams
+       ============================================ */
+
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .flow-box {
+      background: var(--bg-secondary);
+      border: 2px solid var(--nav-border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .flow-box.highlight {
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .flow-box.danger {
+      border-color: var(--accent-danger);
+      background: var(--callout-danger-bg);
+    }
+
+    .flow-box.success {
+      border-color: var(--accent-success);
+      background: var(--callout-success-bg);
+    }
+
+    .flow-box-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .flow-box-subtitle {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .flow-arrow {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       Quote Block
+       ============================================ */
+
+    .quote-block {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--accent-warning);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    .quote-text {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .quote-source {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       Pathway Cards
+       ============================================ */
+
+    .pathway-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--nav-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      height: 100%;
+    }
+
+    .pathway-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+      font-weight: 700;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .pathway-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .pathway-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       Pillar Cards
+       ============================================ */
+
+    .pillar-card {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      border-left: 4px solid var(--accent-primary);
+      height: 100%;
+    }
+
+    .pillar-card.pillar-2 { border-left-color: var(--accent-purple); }
+    .pillar-card.pillar-3 { border-left-color: var(--accent-teal); }
+    .pillar-card.pillar-4 { border-left-color: var(--accent-success); }
+
+    .pillar-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .pillar-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .pillar-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       Title Slide
+       ============================================ */
+
+    .title-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+    }
+
+    .title-slide h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: #d8d8e8;
+    }
+
+    .title-slide .subtitle {
+      font-size: 1.5rem;
+      color: #d4a04a;
+      margin-bottom: 0.5rem;
+    }
+
+    .title-slide .subtitle::after {
+      content: "";
+      display: block;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d4a04a, transparent);
+      margin: 1rem auto 1.5rem;
+      margin-left: 0;
+    }
+
+    .title-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .thesis {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .meta {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+
+    .seal-bg {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      height: 300px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%23d4a04a' stroke-width='2' opacity='0.3'/%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23d4a04a' stroke-width='1' opacity='0.2'/%3E%3Ctext x='50' y='55' font-family='serif' font-size='12' fill='%23d4a04a' text-anchor='middle' opacity='0.4'%3ECALIFORNIA%3C/text%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.4;
+      filter: brightness(0.9);
+      z-index: 1;
+    }
+
+    /* ============================================
+       Section Divider
+       ============================================ */
+
+    .section-divider {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+      text-align: center;
+    }
+
+    .section-number {
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-divider h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-tagline {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+    }
+
+    /* ============================================
+       Comparison
+       ============================================ */
+
+    .comparison-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 1.5rem 0;
+      border: 1px solid var(--nav-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .comparison-header {
+      background: var(--bg-secondary);
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--nav-border);
+    }
+
+    .comparison-header.old { color: var(--accent-danger); }
+    .comparison-header.new { color: var(--accent-success); }
+
+    .comparison-cell {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--nav-border);
+      font-size: 0.9375rem;
+    }
+
+    .comparison-cell:nth-child(odd) {
+      border-right: 1px solid var(--nav-border);
+    }
+
+    /* ============================================
+       Flywheel Diagram
+       ============================================ */
+
+    .flywheel-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+    }
+
+    .flywheel {
+      position: relative;
+      width: 400px;
+      height: 400px;
+    }
+
+    .flywheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      background: var(--bg-secondary);
+      border: 3px solid var(--accent-primary);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .flywheel-center-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+
+    .flywheel-center-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .flywheel-item {
+      position: absolute;
+      width: 100px;
+      text-align: center;
+    }
+
+    .flywheel-item-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .flywheel-item-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    /* ============================================
+       Appendix Link
+       ============================================ */
+
+    .appendix-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--nav-border);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      z-index: 1000;
+    }
+
+    .appendix-link:hover {
+      background: var(--nav-hover);
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+    }
+
+    /* ============================================
+       Badge
+       ============================================ */
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      background: rgba(74, 158, 255, 0.15);
+      color: var(--accent-primary);
+    }
+
+    .badge-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-danger);
+    }
+
+    .badge-success {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--accent-success);
+    }
+
+    .badge-warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-warning);
+    }
+
+    /* ============================================
+       Org Chart
+       ============================================ */
+
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .org-level {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .org-box {
+      background: var(--bg-secondary);
+      border: 2px solid var(--nav-border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.25rem;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .org-box.highlight {
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .org-box.new {
+      border-color: var(--accent-success);
+      background: var(--callout-success-bg);
+    }
+
+    .org-box-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .org-box-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .org-connector {
+      width: 2px;
+      height: 20px;
+      background: var(--nav-border);
+    }
+
+    /* ============================================
+       Pyramid
+       ============================================ */
+
+    .pyramid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .pyramid-level {
+      background: var(--bg-secondary);
+      border: 1px solid var(--nav-border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+
+    .pyramid-level-1 { width: 50%; border-color: var(--accent-primary); }
+    .pyramid-level-2 { width: 70%; border-color: var(--accent-purple); }
+    .pyramid-level-3 { width: 90%; border-color: var(--accent-teal); }
+
+    .pyramid-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .pyramid-desc {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       Responsive
+       ============================================ */
+
+    @media (max-width: 1200px) {
+      .left-nav {
+        width: 240px;
+        min-width: 240px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .left-nav {
+        display: none;
+      }
+
+      .reveal .slides section {
+        padding: 2rem;
+      }
+    }
+
+    /* ============================================
+       Speaker Notes (hidden in presentation)
+       ============================================ */
+
+    aside.notes {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="presentation-wrapper">
+    <!-- Left Navigation -->
+    <nav class="left-nav">
+      <div class="nav-header">
+        <h1 class="nav-title">CA Enterprise Modernization</h1>
+        <p class="nav-subtitle">Governor's Office Briefing</p>
+      </div>
+
+      <div class="nav-scroll">
+        <ul class="nav-sections">
+          <!-- Section A: The Burning Platform -->
+          <li class="nav-group-header">A. The Burning Platform</li>
+          <li class="nav-section active"><a href="#/0" class="nav-text" onclick="goToSlide(0)">Title</a></li>
+          <li class="nav-section"><a href="#/1" class="nav-text" onclick="goToSlide(1)">The $3B Question</a></li>
+          <li class="nav-section"><a href="#/2" class="nav-text" onclick="goToSlide(2)">Why Previous Efforts Failed</a></li>
+          <li class="nav-section"><a href="#/3" class="nav-text" onclick="goToSlide(3)">What Success Looks Like</a></li>
+          <li class="nav-section"><a href="#/4" class="nav-text" onclick="goToSlide(4)">The Four Pillars</a></li>
+
+          <!-- Section B: Accountability Architecture -->
+          <li class="nav-group-header">B. Accountability Architecture</li>
+          <li class="nav-section"><a href="#/5" class="nav-text" onclick="goToSlide(5)">E3 Operational Model</a></li>
+          <li class="nav-section"><a href="#/6" class="nav-text" onclick="goToSlide(6)">E3 Explained</a></li>
+          <li class="nav-section"><a href="#/7" class="nav-text" onclick="goToSlide(7)">Technical Executive Assignment</a></li>
+          <li class="nav-section"><a href="#/8" class="nav-text" onclick="goToSlide(8)">TEA Pathways</a></li>
+          <li class="nav-section"><a href="#/9" class="nav-text" onclick="goToSlide(9)">Portfolio Approach</a></li>
+
+          <!-- Section C: Data Liberation -->
+          <li class="nav-group-header">C. Data Liberation</li>
+          <li class="nav-section"><a href="#/10" class="nav-text" onclick="goToSlide(10)">The Data Sharing Problem</a></li>
+          <li class="nav-section"><a href="#/11" class="nav-text" onclick="goToSlide(11)">Independent Office</a></li>
+          <li class="nav-section"><a href="#/12" class="nav-text" onclick="goToSlide(12)">Data Steward Network</a></li>
+          <li class="nav-section"><a href="#/13" class="nav-text" onclick="goToSlide(13)">Sharing Templates</a></li>
+
+          <!-- Section D: Capability Building -->
+          <li class="nav-group-header">D. Capability Building</li>
+          <li class="nav-section"><a href="#/14" class="nav-text" onclick="goToSlide(14)">Digital Capability Model</a></li>
+          <li class="nav-section"><a href="#/15" class="nav-text" onclick="goToSlide(15)">Governor's Fellowship</a></li>
+          <li class="nav-section"><a href="#/16" class="nav-text" onclick="goToSlide(16)">AI Augmentation</a></li>
+
+          <!-- Section E: Sustainable Funding -->
+          <li class="nav-group-header">E. Sustainable Funding</li>
+          <li class="nav-section"><a href="#/17" class="nav-text" onclick="goToSlide(17)">Breakthrough Fund</a></li>
+          <li class="nav-section"><a href="#/18" class="nav-text" onclick="goToSlide(18)">Investment Categories</a></li>
+          <li class="nav-section"><a href="#/19" class="nav-text" onclick="goToSlide(19)">Fund Sustainability</a></li>
+          <li class="nav-section"><a href="#/20" class="nav-text" onclick="goToSlide(20)">Procurement Innovation</a></li>
+
+          <!-- Section F: Implementation & Asks -->
+          <li class="nav-group-header">F. Implementation & Asks</li>
+          <li class="nav-section"><a href="#/21" class="nav-text" onclick="goToSlide(21)">Budget Summary</a></li>
+          <li class="nav-section"><a href="#/22" class="nav-text" onclick="goToSlide(22)">Implementation Timeline</a></li>
+          <li class="nav-section"><a href="#/23" class="nav-text" onclick="goToSlide(23)">Key Risks</a></li>
+          <li class="nav-section"><a href="#/24" class="nav-text" onclick="goToSlide(24)">The Ask</a></li>
+          <li class="nav-section"><a href="#/25" class="nav-text" onclick="goToSlide(25)">Next Steps</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-footer">
+        <div class="progress-text">
+          <span>Progress</span>
+          <span id="progress-counter">1 of 26</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width: 4%"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Reveal.js Container -->
+    <div class="reveal-container">
+      <div class="reveal">
+        <div class="slides">
+
+          <!-- ============================================
+               SECTION A: THE BURNING PLATFORM
+               ============================================ -->
+
+          <!-- Slide 0: Title -->
+          <section class="title-slide">
+            <div class="title-content">
+              <h1>California Enterprise<br>Modernization Plan</h1>
+              <p class="subtitle">E3 Operational Model</p>
+              <p class="thesis"><strong>Core Thesis:</strong> Create institutional accountability for modernization through permanent E3 leadership, cross-branch data governance, and self-sustaining investment.</p>
+              <p class="meta">Governor's Office Briefing &bull; January 2026</p>
+            </div>
+            <div class="seal-bg"></div>
+            <aside class="notes">
+              Welcome. This presentation outlines a comprehensive plan to address California's $3B+ in annual IT losses through four integrated pillars: accountability, data governance, capability building, and sustainable funding. The plan is designed to deliver measurable results within this administration while creating structures that survive political transitions.
+            </aside>
+          </section>
+
+          <!-- Slide 1: The $3B Question -->
+          <section>
+            <h2>The $3 Billion Question</h2>
+            <p class="lead">California loses more than $3 billion annually to fraud, failed IT projects, and unqualified leadership.</p>
+
+            <div class="grid-4">
+              <div class="stat-card">
+                <div class="stat-value danger">$20B+</div>
+                <div class="stat-label">EDD fraud during pandemic</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value danger">$500M+</div>
+                <div class="stat-label">Abandoned IT projects</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value warning">$200M+</div>
+                <div class="stat-label">Duplicate systems annually</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value warning">$100M+</div>
+                <div class="stat-label">Manual processes</div>
+              </div>
+            </div>
+
+            <div class="callout callout-danger">
+              <strong>The State Auditor has identified the same high-risk issues for 18 consecutive years.</strong> CDT's IT oversight has been designated high-risk since May 2007. Recommendations are ignored because no one has authority to enforce them.
+            </div>
+
+            <aside class="notes">
+              These aren't projections—they're verified losses from State Auditor reports. The $20B EDD fraud wasn't a one-time event; we're still losing $500M annually to ongoing fraud because the underlying systems haven't been fixed. The structural problem: unlike private companies facing market pressure, government agencies have no forcing mechanism for efficiency.
+            </aside>
+          </section>
+
+          <!-- Slide 2: Why Previous Efforts Failed -->
+          <section>
+            <h2>Why Previous Efforts Failed</h2>
+            <p class="lead">Three structural failures explain why past modernization initiatives haven't worked:</p>
+
+            <div class="grid-3">
+              <div class="card">
+                <h4>🎭 Accountability Theater</h4>
+                <p>Five oversight bodies exist, but none have enforcement power. Agencies acknowledge recommendations and continue unchanged.</p>
+                <p class="small muted">Little Hoover Commission: "empowered only to make recommendations"</p>
+              </div>
+
+              <div class="card">
+                <h4>🔒 Data Silos</h4>
+                <p>Data sharing agreements take 12-18 months because every agreement starts from scratch. Agencies can't collaborate on citizen services.</p>
+                <p class="small muted">No central authority to mandate standards</p>
+              </div>
+
+              <div class="card">
+                <h4>📋 No Technical Standards</h4>
+                <p>We require doctors to be licensed and attorneys to pass the bar—but no competence test for CIOs managing billions in IT.</p>
+                <p class="small muted">October 2025: CISO terminated for raising concerns about unqualified leadership</p>
+              </div>
+            </div>
+
+            <div class="quote-block">
+              <p class="quote-text">"You wouldn't let your plumber perform surgery on you. How does it make any sense for someone who has no basis in the reality of the cyber world to dictate policy?"</p>
+              <p class="quote-source">— California Cybersecurity Employee, CalMatters (October 2025)</p>
+            </div>
+
+            <aside class="notes">
+              This isn't about bad people—it's about bad structure. The current system has no enforcement mechanism, no data sharing framework, and no technical qualification requirements. FI$Cal has been running for 20 years across multiple governors, costing over $1 billion, and is still incomplete. That's not project failure—that's system failure.
+            </aside>
+          </section>
+
+          <!-- Slide 3: What Success Looks Like -->
+          <section>
+            <h2>What Success Looks Like</h2>
+            <p class="lead">By Year 5, California achieves measurable transformation:</p>
+
+            <div class="grid-2">
+              <div>
+                <h4>Efficiency Gains</h4>
+                <table>
+                  <tr>
+                    <td>Annual cost savings</td>
+                    <td><strong style="color: var(--accent-success)">$200M-$350M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Legacy system reduction</td>
+                    <td><strong style="color: var(--accent-success)">25%</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Digital service adoption</td>
+                    <td><strong style="color: var(--accent-success)">50%+</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Data sharing time</td>
+                    <td><strong style="color: var(--accent-success)">4-8 weeks</strong> (vs 12-18 months)</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div>
+                <h4>Institutional Capacity</h4>
+                <table>
+                  <tr>
+                    <td>E3 Leaders deployed</td>
+                    <td><strong>38-52</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Senior Fellows graduated</td>
+                    <td><strong>120+</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Staff trained (CalAcademy)</td>
+                    <td><strong>10,000+</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Breakthrough Fund self-sustaining</td>
+                    <td><strong>30-50%</strong></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="callout callout-success">
+              <strong>This is not a 5-year plan that delivers value in Year 5.</strong> Quick wins begin in Month 3. The fund starts generating returns in Year 1. By Year 3, the program pays for itself.
+            </div>
+
+            <aside class="notes">
+              The key insight is front-loaded value delivery. We're not asking you to invest for 5 years before seeing results. Quick wins—process automation, digital forms, API wrappers—start generating savings immediately. The Breakthrough Fund's portfolio approach means even if some projects fail, the overall return is positive.
+            </aside>
+          </section>
+
+          <!-- Slide 4: The Four Pillars -->
+          <section>
+            <h2>The Four Pillars</h2>
+            <p class="lead">Four integrated components create sustainable modernization capacity:</p>
+
+            <div class="grid-4">
+              <div class="pillar-card">
+                <div class="pillar-icon">🏛️</div>
+                <div class="pillar-title">Institutional Accountability</div>
+                <div class="pillar-desc">E3 leadership positions with real authority + Technical Executive Assignment (TEA) standards</div>
+              </div>
+
+              <div class="pillar-card pillar-2">
+                <div class="pillar-icon">🔗</div>
+                <div class="pillar-title">Data Governance</div>
+                <div class="pillar-desc">Independent Office with cross-branch authority + standardized sharing templates</div>
+              </div>
+
+              <div class="pillar-card pillar-3">
+                <div class="pillar-icon">📚</div>
+                <div class="pillar-title">Capability Building</div>
+                <div class="pillar-desc">Three-tier upskilling + Governor's Innovation Fellowship + AI productivity tools</div>
+              </div>
+
+              <div class="pillar-card pillar-4">
+                <div class="pillar-icon">💰</div>
+                <div class="pillar-title">Sustainable Funding</div>
+                <div class="pillar-desc">$100M Breakthrough Fund + 25% savings reinvestment + modular contracting</div>
+              </div>
+            </div>
+
+            <p class="muted" style="text-align: center; margin-top: 2rem;">Each pillar reinforces the others. Leadership without funding fails. Data governance without capable staff fails. Investment without accountability fails.</p>
+
+            <aside class="notes">
+              Think of these as four legs of a table—remove one and it falls. E3 leaders need data authority to drive efficiency. Data governance needs trained stewards to implement standards. The Breakthrough Fund needs accountable leadership to achieve returns. And everyone needs sustained funding to maintain momentum.
+            </aside>
+          </section>
+
+          <!-- ============================================
+               SECTION B: ACCOUNTABILITY ARCHITECTURE
+               ============================================ -->
+
+          <!-- Slide 5: E3 Operational Model -->
+          <section>
+            <h2>E3 Operational Model</h2>
+            <p class="lead">Enterprise Efficiency and Effectiveness leadership creates institutional accountability for modernization.</p>
+
+            <div class="org-chart">
+              <div class="org-level">
+                <div class="org-box">
+                  <div class="org-box-title">Governor</div>
+                </div>
+              </div>
+              <div class="org-connector"></div>
+              <div class="org-level">
+                <div class="org-box">
+                  <div class="org-box-title">Agency Secretaries</div>
+                  <div class="org-box-subtitle">8-12 Agencies</div>
+                </div>
+                <div class="org-box new">
+                  <div class="org-box-title">TMO</div>
+                  <div class="org-box-subtitle">@ GovOps</div>
+                </div>
+              </div>
+              <div class="org-connector"></div>
+              <div class="org-level">
+                <div class="org-box new">
+                  <div class="org-box-title">E3 Undersecretaries</div>
+                  <div class="org-box-subtitle">8-12 positions</div>
+                </div>
+              </div>
+              <div class="org-connector"></div>
+              <div class="org-level">
+                <div class="org-box new">
+                  <div class="org-box-title">E3 Chief Deputy Directors</div>
+                  <div class="org-box-subtitle">30-40 positions</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <h4>Key Innovation: Dual Accountability</h4>
+                <ul>
+                  <li>E3 leaders report to both Agency Secretary AND TMO</li>
+                  <li>Creates "functional independence" like CFOs</li>
+                  <li>Can't be ignored or overruled on modernization</li>
+                </ul>
+              </div>
+              <div class="column">
+                <h4>Why Civil Service Matters</h4>
+                <ul>
+                  <li>E3 positions are permanent civil service</li>
+                  <li>Survives administration transitions</li>
+                  <li>Removal requires documented cause</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside class="notes">
+              The CFO analogy is deliberate. Before the 1970s, financial reporting varied wildly across organizations. We created the CFO role with independent authority to ensure consistent, honest financial reporting. E3 leaders are the CFO equivalent for technology and efficiency—they have the authority to say "no" to bad projects and the job security to survive political pressure.
+            </aside>
+          </section>
+
+          <!-- Slide 6: E3 Explained -->
+          <section>
+            <h2>E3 Explained: The CFO Analogy</h2>
+
+            <div class="comparison-table">
+              <div class="comparison-header old">Before CFOs (1970s)</div>
+              <div class="comparison-header new">CFO Model (Today)</div>
+
+              <div class="comparison-cell">Financial reporting varied by company</div>
+              <div class="comparison-cell">Standardized GAAP reporting</div>
+
+              <div class="comparison-cell">Accountants reported to local managers</div>
+              <div class="comparison-cell">CFO has independent authority</div>
+
+              <div class="comparison-cell">No consequences for misleading numbers</div>
+              <div class="comparison-cell">Sarbanes-Oxley liability</div>
+
+              <div class="comparison-cell">Every acquisition started from scratch</div>
+              <div class="comparison-cell">Standard due diligence frameworks</div>
+            </div>
+
+            <div class="callout">
+              <strong>E3 does for technology what CFOs did for finance:</strong> creates institutional accountability that doesn't depend on individual heroism or political will.
+            </div>
+
+            <p>The E3 structure ensures that modernization is <strong>someone's job</strong>—with the authority to do it, the expertise to do it right, and the job security to survive pushback.</p>
+
+            <aside class="notes">
+              Here's the key question: whose job is it to modernize California government? Right now, the answer is "everyone and no one." Department directors have 50 priorities. IT staff are maintaining legacy systems. Agency secretaries are putting out fires. E3 leaders make modernization their PRIMARY responsibility—and give them the authority to actually do it.
+            </aside>
+          </section>
+
+          <!-- Slide 7: Technical Executive Assignment -->
+          <section>
+            <h2>Technical Executive Assignment (TEA)</h2>
+            <p class="lead">A "bar exam" for technical executives managing billions in state IT.</p>
+
+            <div class="flow-diagram">
+              <div class="flow-box">
+                <div class="flow-box-title">Doctor</div>
+                <div class="flow-box-subtitle">Medical License</div>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">
+                <div class="flow-box-title">Attorney</div>
+                <div class="flow-box-subtitle">Bar Exam</div>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">
+                <div class="flow-box-title">Engineer</div>
+                <div class="flow-box-subtitle">PE License</div>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box danger">
+                <div class="flow-box-title">State CIO</div>
+                <div class="flow-box-subtitle">No Requirement</div>
+              </div>
+            </div>
+
+            <h4>Covered Positions</h4>
+            <div class="columns">
+              <div class="column">
+                <ul>
+                  <li><strong>Chief Information Officer</strong> — State CIO and all agency CIOs</li>
+                  <li><strong>Chief Information Security Officer</strong> — State CISO and agency CISOs</li>
+                </ul>
+              </div>
+              <div class="column">
+                <ul>
+                  <li><strong>Chief Data Officer</strong> — State CDO and agency CDOs</li>
+                  <li><strong>Chief Technology Officer</strong> — All CTOs</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-warning">
+              <strong>Current State:</strong> No technical competence requirements exist for executives responsible for $10B+ in technology spending and data on 40 million Californians.
+            </div>
+
+            <aside class="notes">
+              This isn't about creating bureaucratic barriers—it's about basic competence. We don't let unlicensed people practice medicine or law because the stakes are too high. IT executives manage systems that process billions in benefits, protect personal data on 40 million residents, and handle life-safety systems. The stakes are just as high.
+            </aside>
+          </section>
+
+          <!-- Slide 8: TEA Pathways -->
+          <section>
+            <h2>TEA: Three Pathways to Qualification</h2>
+            <p class="lead">Flexible pathways maintain rigor while accommodating different backgrounds:</p>
+
+            <div class="grid-3">
+              <div class="pathway-card">
+                <div class="pathway-number">1</div>
+                <div class="pathway-title">Professional Certification</div>
+                <div class="pathway-desc">
+                  <p>Industry-recognized credentials:</p>
+                  <ul>
+                    <li><strong>Security:</strong> CISSP, CISM, CISA</li>
+                    <li><strong>Management:</strong> PMP, TOGAF, ITIL Expert</li>
+                    <li><strong>Data:</strong> CDMP</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="pathway-card">
+                <div class="pathway-number">2</div>
+                <div class="pathway-title">Demonstrated Experience</div>
+                <div class="pathway-desc">
+                  <p>For experienced practitioners:</p>
+                  <ul>
+                    <li>10+ years progressive leadership</li>
+                    <li>Documented project outcomes</li>
+                    <li>Technical peer references</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="pathway-card">
+                <div class="pathway-number">3</div>
+                <div class="pathway-title">Independent Panel</div>
+                <div class="pathway-desc">
+                  <p>For non-traditional backgrounds:</p>
+                  <ul>
+                    <li>CalHR + CDT + External Expert</li>
+                    <li>Structured technical interview</li>
+                    <li>Written recommendation (public record)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <p class="muted" style="text-align: center; margin-top: 1.5rem;">Panel pathway accommodates military cyber operators, startup CTOs, career changers, and others with non-traditional paths to expertise.</p>
+
+            <aside class="notes">
+              We intentionally created three pathways because we don't want to exclude talented people. Some excellent CISOs earned their skills in military cyber operations without civilian certifications. Some great CDOs built their expertise in startups. The panel pathway ensures we can evaluate competence regardless of how it was acquired—while still maintaining a rigorous standard.
+            </aside>
+          </section>
+
+          <!-- Slide 9: Portfolio Approach -->
+          <section>
+            <h2>Portfolio Approach to Risk</h2>
+            <p class="lead">Like a VC portfolio, we accept that not all investments succeed—and design for it.</p>
+
+            <div class="chart-container">
+              <div class="chart-title">Investment Risk/Return Matrix</div>
+              <div class="chart-wrapper">
+                <canvas id="portfolioChart"></canvas>
+              </div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <h4>Traditional Government Budgeting</h4>
+                <ul>
+                  <li>Each project treated as pass/fail</li>
+                  <li>Failure = scandal, hearings, firings</li>
+                  <li>Result: Only fund "safe" projects</li>
+                  <li>Safe projects = incremental change</li>
+                </ul>
+              </div>
+              <div class="column">
+                <h4>Portfolio Approach</h4>
+                <ul>
+                  <li>Diversified across risk categories</li>
+                  <li>Failure = learning, not scandal</li>
+                  <li>80% Quick Win success funds 30% Moonshot success</li>
+                  <li>Transformational change becomes possible</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside class="notes">
+              Here's the uncomfortable truth: if you're not failing sometimes, you're not taking enough risk. Every successful VC portfolio has failures. The question isn't "did any projects fail?" but "did the portfolio as a whole deliver positive returns?" Our structure allows California to fund innovation ventures that might fail individually but generate transformational returns when they succeed.
+            </aside>
+          </section>
+
+          <!-- ============================================
+               SECTION C: DATA LIBERATION
+               ============================================ -->
+
+          <!-- Slide 10: The Data Sharing Problem -->
+          <section>
+            <h2>The Data Sharing Problem</h2>
+            <p class="lead">Data sharing negotiations currently take 12-18 months because every agreement is custom.</p>
+
+            <div class="flow-diagram">
+              <div class="flow-box">
+                <div class="flow-box-title">Agency A</div>
+                <div class="flow-box-subtitle">Needs data</div>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box danger">
+                <div class="flow-box-title">12-18 Months</div>
+                <div class="flow-box-subtitle">Legal negotiation</div>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">
+                <div class="flow-box-title">Agency B</div>
+                <div class="flow-box-subtitle">Has data</div>
+              </div>
+            </div>
+
+            <h4>Why It Takes So Long</h4>
+            <div class="columns">
+              <div class="column">
+                <ul>
+                  <li>No standardized templates</li>
+                  <li>Every agreement starts from scratch</li>
+                  <li>Legal teams negotiate same clauses repeatedly</li>
+                </ul>
+              </div>
+              <div class="column">
+                <ul>
+                  <li>No central authority to resolve disputes</li>
+                  <li>Executive-only governance excludes other branches</li>
+                  <li>Political transitions reset relationships</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-danger">
+              <strong>Real Impact:</strong> Citizens provide the same information to multiple agencies. Programs that could share fraud indicators can't. Emergency response coordination is slowed. And we pay $200M+ annually for duplicate systems that exist because agencies can't share data.
+            </div>
+
+            <aside class="notes">
+              Think about what 12-18 months means in practice. A citizen applies for multiple benefits—they provide the same address, income, household information to each agency separately. A fraud indicator that could prevent losses sits in one system while another system pays fraudulent claims. Emergency responders can't see the full picture because data lives in silos. This isn't a technical problem—it's a governance problem.
+            </aside>
+          </section>
+
+          <!-- Slide 11: Independent Office -->
+          <section>
+            <h2>Independent Office of State Data Governance</h2>
+            <p class="lead">Cross-branch authority following the Little Hoover Commission model—but with enforcement power.</p>
+
+            <div class="columns">
+              <div class="column">
+                <h4>Board Composition (9 Members)</h4>
+                <ul>
+                  <li>2 Governor appointments</li>
+                  <li>1 Senate Rules Committee</li>
+                  <li>1 Assembly Speaker</li>
+                  <li>1 Judicial Council</li>
+                  <li>1 UC Regents</li>
+                  <li>1 CSU Board</li>
+                  <li>1 Public seat (citizen accountability)</li>
+                  <li>1 Private sector (digital expertise)</li>
+                </ul>
+              </div>
+              <div class="column">
+                <h4>Binding Authority</h4>
+                <ul>
+                  <li>Set statewide data standards</li>
+                  <li>Approve/mandate sharing frameworks</li>
+                  <li>Establish AI governance standards</li>
+                  <li>Resolve inter-agency disputes</li>
+                  <li>Enforce via budget/procurement</li>
+                </ul>
+                <p class="small muted" style="margin-top: 1rem;">Like a "Federal Reserve for data"—independent, technical, binding.</p>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>Why Independence Matters:</strong> Single-agency governance (e.g., within GovOps) lacks legitimacy across other cabinet agencies. Legislative and judicial branches need data too. Political transitions shouldn't reset data governance.
+            </div>
+
+            <aside class="notes">
+              We chose the Little Hoover Commission model deliberately. Cross-branch appointments create legitimacy that executive-only governance lacks. The judicial council needs data for court operations. The legislature needs data for oversight. An independent office with staggered terms survives administration transitions—which is essential for multi-year modernization.
+            </aside>
+          </section>
+
+          <!-- Slide 12: Data Steward Network -->
+          <section>
+            <h2>Data Steward Network</h2>
+            <p class="lead">Sustainable capacity through embedded expertise—not massive centralized teams.</p>
+
+            <div class="pyramid">
+              <div class="pyramid-level pyramid-level-1">
+                <div class="pyramid-title">Tier 3: Central Specialists</div>
+                <div class="pyramid-desc">50-100 positions • Train-the-trainer, AI oversight, governance</div>
+              </div>
+              <div class="pyramid-level pyramid-level-2">
+                <div class="pyramid-title">Tier 2: Data Stewards</div>
+                <div class="pyramid-desc">Existing staff • 40-hour CalAcademy certification • Department-determined ratios</div>
+              </div>
+              <div class="pyramid-level pyramid-level-3">
+                <div class="pyramid-title">Tier 1: Digital Literacy</div>
+                <div class="pyramid-desc">All knowledge workers • CalAcademy training • AI literacy, data basics</div>
+              </div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <h4>What Data Stewards Do</h4>
+                <ul>
+                  <li>Own data quality for their unit</li>
+                  <li>Implement Independent Office standards</li>
+                  <li>Train colleagues on best practices</li>
+                  <li>Identify sharing opportunities</li>
+                </ul>
+              </div>
+              <div class="column">
+                <h4>Key Innovation</h4>
+                <ul>
+                  <li><strong>No new hiring</strong>—uses existing staff</li>
+                  <li>Department determines appropriate ratio</li>
+                  <li>AI tools multiply productivity 40%</li>
+                  <li>Central specialists train, don't do</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside class="notes">
+              This is why our budget is $23-38M instead of $70-95M. We're not trying to hire hundreds of data specialists that California can't afford and can't compete to recruit. We're upskilling existing staff—people who already know the programs, the data, the stakeholders—and equipping them with AI tools that multiply their productivity. The 50-100 central specialists exist to train the trainers, not to do the work.
+            </aside>
+          </section>
+
+          <!-- Slide 13: Data Sharing Templates -->
+          <section>
+            <h2>Standardized Sharing Templates</h2>
+            <p class="lead">90% reduction in negotiation time through pre-vetted templates.</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Template</th>
+                  <th>Sensitivity</th>
+                  <th>Time</th>
+                  <th>Approver</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Type 1: Public Data</strong></td>
+                  <td><span class="badge badge-success">Low</span></td>
+                  <td>2-4 weeks</td>
+                  <td>Chief Deputy Director</td>
+                </tr>
+                <tr>
+                  <td><strong>Type 2: Limited PII</strong></td>
+                  <td><span class="badge badge-warning">Moderate</span></td>
+                  <td>4-6 weeks</td>
+                  <td>CDD + Data Stewards</td>
+                </tr>
+                <tr>
+                  <td><strong>Type 3: Sensitive</strong></td>
+                  <td><span class="badge badge-danger">High</span></td>
+                  <td>6-8 weeks</td>
+                  <td>Undersecretary + Independent Office</td>
+                </tr>
+                <tr>
+                  <td><strong>Type 4: Cross-Branch</strong></td>
+                  <td><span class="badge">Variable</span></td>
+                  <td>8-12 weeks</td>
+                  <td>Independent Office Board</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout callout-success">
+              <strong>Result:</strong> Data sharing drops from 12-18 months to 4-8 weeks for most common scenarios. Legal clarity reduces risk. Similar use cases are treated similarly. The templates are public so citizens can see the standard terms.
+            </div>
+
+            <aside class="notes">
+              The key insight is that most data sharing falls into common patterns. Business registries, aggregate statistics—those are Type 1. Permit applications, licensing records—Type 2. Criminal justice, child welfare, mental health—Type 3. Once you have pre-vetted templates, you're not negotiating from scratch every time. You're just filling in the specifics.
+            </aside>
+          </section>
+
+          <!-- ============================================
+               SECTION D: CAPABILITY BUILDING
+               ============================================ -->
+
+          <!-- Slide 14: Digital Capability Model -->
+          <section>
+            <h2>California Digital Capability Model</h2>
+            <p class="lead">"Multiply, don't add"—upskilling delivers greater ROI than hiring.</p>
+
+            <div class="comparison-table">
+              <div class="comparison-header old">Mass Hiring Approach</div>
+              <div class="comparison-header new">Upskilling + AI Approach</div>
+
+              <div class="comparison-cell">Hire 400+ specialists</div>
+              <div class="comparison-cell">Train 2,000 existing staff</div>
+
+              <div class="comparison-cell">$50-70M annually in salaries</div>
+              <div class="comparison-cell">$5-10M annually in training</div>
+
+              <div class="comparison-cell">25% below private sector = chronic vacancies</div>
+              <div class="comparison-cell">Staff who already know the programs</div>
+
+              <div class="comparison-cell">400 FTE output</div>
+              <div class="comparison-cell">2,800 FTE equivalent output (40% AI boost)</div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <h4>Evidence Base</h4>
+                <ul>
+                  <li>UK Gov Copilot trial: 26 min/day saved (≈1,130 FTE equivalent)</li>
+                  <li>Penn Wharton: 40% productivity gains in analytical work</li>
+                  <li>Microsoft/ROI Institute: 43% ROI on government upskilling</li>
+                </ul>
+              </div>
+              <div class="column">
+                <h4>Why This Matters</h4>
+                <ul>
+                  <li>California can't compete on salary (25% gap)</li>
+                  <li>Hiring 500 specialists costs $10-12M in recruiting alone</li>
+                  <li>Existing staff know the programs and stakeholders</li>
+                  <li>AI tools compound the productivity gain</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside class="notes">
+              Let me be direct: California cannot win a hiring war for technical talent. We're 25% below private sector on salary. Trying to hire 500 data specialists would take years, cost millions in recruiting, and result in chronic vacancies. Instead, we upskill 2,000 existing knowledge workers—people who already understand the programs—and equip them with AI tools. The math works out to equivalent capacity at a fraction of the cost.
+            </aside>
+          </section>
+
+          <!-- Slide 15: Governor's Innovation Fellowship -->
+          <section>
+            <h2>Governor's Innovation Fellowship</h2>
+            <p class="lead">60 future technical executives annually—leaders, not frontline capacity.</p>
+
+            <div class="grid-2">
+              <div class="card">
+                <h4>Program Structure</h4>
+                <table>
+                  <tr>
+                    <td>Fellows per year</td>
+                    <td><strong>60</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Cohort size</td>
+                    <td><strong>20</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Duration</td>
+                    <td><strong>6 months</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Cohorts per year</td>
+                    <td><strong>3</strong> (Jan, May, Sep)</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="card">
+                <h4>Program Components</h4>
+                <ul>
+                  <li><strong>Weeks 1-2:</strong> Foundational bootcamp</li>
+                  <li><strong>Months 1-3:</strong> Listening sessions + executive shadowing</li>
+                  <li><strong>Months 1-4:</strong> Human-centered design training</li>
+                  <li><strong>Full 6 months:</strong> Department embedding + project ownership</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>Key Distinction:</strong> The Fellowship produces <strong>leaders</strong>; upskilling produces <strong>capacity</strong>. Fellows are the TEA pipeline—future CIOs, CDOs, CTOs—not frontline modernization staff.
+            </div>
+
+            <p class="small muted">After 36 months: 120+ Senior Fellows available as on-call SME network and emergency response capacity.</p>
+
+            <aside class="notes">
+              Think of this as a leadership pipeline, not a staffing program. We're not producing 60 analysts a year—we're producing 60 future technical executives who understand California government from the inside. By year 3, we have 120+ Senior Fellows who can be activated for emergencies, consulted on complex projects, and eventually promoted into TEA-qualified positions.
+            </aside>
+          </section>
+
+          <!-- Slide 16: AI Augmentation -->
+          <section>
+            <h2>AI Productivity Augmentation</h2>
+            <p class="lead">Claude Code deployment: 40% productivity gain at $20/user/month.</p>
+
+            <div class="columns">
+              <div class="column">
+                <h4>Deployment Plan</h4>
+                <ul>
+                  <li><strong>Timeline:</strong> 8-9 month phased rollout</li>
+                  <li><strong>Risk-based:</strong> Internal tools → Websites → Infrastructure → Benefits</li>
+                  <li><strong>Compliance:</strong> SOC 2 Type II, ISO 27001:2022</li>
+                  <li><strong>Privacy:</strong> Data NOT used for training</li>
+                </ul>
+              </div>
+              <div class="column">
+                <h4>Impact Model</h4>
+                <table>
+                  <tr>
+                    <td>100 IT developers</td>
+                    <td>→ 140 FTE equivalent</td>
+                  </tr>
+                  <tr>
+                    <td>500 analysts</td>
+                    <td>→ 700 FTE equivalent</td>
+                  </tr>
+                  <tr>
+                    <td>2,000 upskilled staff</td>
+                    <td>→ 2,800 FTE equivalent</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="callout callout-warning">
+              <strong>Important:</strong> AI tools augment worker productivity—they don't replace positions. All deployment includes training for affected workers. This is "multiply, don't add" in action.
+            </div>
+
+            <p class="small muted">Claude Code already vetted for California compliance. See detailed deployment plan in <a href="ca-enterprise-modernization-appendix-2026-01.html#/4/2" style="color: var(--accent-primary);">Appendix C.2</a>.</p>
+
+            <aside class="notes">
+              Let me address the concern directly: this is about making workers more productive, not replacing them. The UK Government trial found Copilot saved 26 minutes per day per employee. Multiply that across thousands of workers and you get the equivalent of 1,100 additional employees—without a single new hire. That's how we achieve results with a $23-38M budget instead of $70-95M.
+            </aside>
+          </section>
+
+          <!-- ============================================
+               SECTION E: SUSTAINABLE FUNDING
+               ============================================ -->
+
+          <!-- Slide 17: Breakthrough Fund -->
+          <section>
+            <h2>California Breakthrough Modernization Fund</h2>
+            <p class="lead">$100M fund operating like a VC portfolio—not a traditional budget line item.</p>
+
+            <div class="grid-2">
+              <div>
+                <h4>Capitalization</h4>
+                <table>
+                  <tr>
+                    <td>State appropriation</td>
+                    <td><strong>$50M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Private sector match</td>
+                    <td><strong>$50M</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>$100M</strong></td>
+                  </tr>
+                </table>
+
+                <h4 style="margin-top: 1.5rem;">Why a Dedicated Fund?</h4>
+                <ul>
+                  <li><strong>Multi-year horizon:</strong> 2-5 year projects need stable funding</li>
+                  <li><strong>Speed:</strong> Pre-authorized = weeks, not months</li>
+                  <li><strong>Portfolio approach:</strong> Accept some failures, maximize overall return</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <h4>Critical Distinction</h4>
+                <p>The Breakthrough Fund is for <strong>projects only</strong>:</p>
+                <ul>
+                  <li>Quick Wins</li>
+                  <li>Strategic Initiatives</li>
+                  <li>Innovation Ventures</li>
+                </ul>
+                <p style="margin-top: 1rem;">All <strong>positions</strong> require separate General Fund appropriation:</p>
+                <ul>
+                  <li>E3 leadership: $10-17M</li>
+                  <li>TMO staff: $4-5M</li>
+                  <li>Independent Office: $2.5-4M</li>
+                  <li>Fellowship + Training: $6-12M</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside class="notes">
+              This is the funding mechanism that makes everything else possible. Traditional annual budgets can't support 5-year modernization initiatives—you're always one budget cycle from losing funding. The Breakthrough Fund provides stable, multi-year investment capacity. And the 50/50 split with private sector brings external accountability and expertise.
+            </aside>
+          </section>
+
+          <!-- Slide 18: Investment Categories -->
+          <section>
+            <h2>Investment Categories</h2>
+            <p class="lead">Portfolio diversification across risk profiles:</p>
+
+            <div class="grid-3">
+              <div class="card">
+                <div class="badge badge-success" style="margin-bottom: 1rem;">LOW RISK</div>
+                <h4>Quick Wins (40%)</h4>
+                <p class="small">$100K-$500K • 1-12 months</p>
+                <ul class="small">
+                  <li>Process automation</li>
+                  <li>Digital form conversion</li>
+                  <li>API wrappers for legacy</li>
+                  <li>AI tool deployment</li>
+                </ul>
+                <p class="small muted" style="margin-top: 0.5rem;">Target: 80%+ success rate</p>
+              </div>
+
+              <div class="card">
+                <div class="badge badge-warning" style="margin-bottom: 1rem;">MODERATE RISK</div>
+                <h4>Strategic Initiatives (40%)</h4>
+                <p class="small">$500K-$5M • 12-24 months</p>
+                <ul class="small">
+                  <li>Cloud migrations</li>
+                  <li>Cross-agency platforms</li>
+                  <li>Citizen portal redesigns</li>
+                  <li>Statewide upskilling</li>
+                </ul>
+                <p class="small muted" style="margin-top: 0.5rem;">Target: 60%+ success rate</p>
+              </div>
+
+              <div class="card">
+                <div class="badge badge-danger" style="margin-bottom: 1rem;">HIGH RISK</div>
+                <h4>Innovation Ventures (20%)</h4>
+                <p class="small">$100K-$1M • 12-36 months</p>
+                <ul class="small">
+                  <li>AI-powered eligibility</li>
+                  <li>Intelligent document processing</li>
+                  <li>Predictive fraud detection</li>
+                  <li>AI citizen assistants</li>
+                </ul>
+                <p class="small muted" style="margin-top: 0.5rem;">Target: 30%+ success rate</p>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>Portfolio Math:</strong> If 80% of Quick Wins succeed + 60% of Strategic + 30% of Ventures, the overall portfolio generates strong positive returns even with individual failures.
+            </div>
+
+            <aside class="notes">
+              The 20% Innovation Ventures allocation is crucial. That's where transformational change happens—AI-powered eligibility that could save hundreds of millions in fraud, predictive analytics that catch problems before they become crises. We accept that 70% of these will fail, because the 30% that succeed generate disproportionate returns.
+            </aside>
+          </section>
+
+          <!-- Slide 19: Fund Sustainability -->
+          <section>
+            <h2>Fund Sustainability Mechanism</h2>
+            <p class="lead">25% of verified savings reinvested—the fund becomes self-sustaining by Year 5-7.</p>
+
+            <div class="chart-container">
+              <div class="chart-title">Fund Balance Projection (5 Years)</div>
+              <div class="chart-wrapper">
+                <canvas id="sustainabilityChart"></canvas>
+              </div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <h4>How It Works</h4>
+                <ol>
+                  <li>Fund invests $2M in cloud migration</li>
+                  <li>Migration saves $800K annually</li>
+                  <li>25% ($200K/year) returns to fund</li>
+                  <li>After 10 years: $2M returned (break-even)</li>
+                  <li>Agency keeps $6M in cumulative savings</li>
+                </ol>
+              </div>
+              <div class="column">
+                <h4>Timeline</h4>
+                <ul>
+                  <li><strong>Years 1-3:</strong> Investments exceed returns (normal)</li>
+                  <li><strong>Years 4-5:</strong> Returns grow as projects mature</li>
+                  <li><strong>Years 5-7:</strong> Fund becomes 30-50% self-sustaining</li>
+                  <li><strong>Long-term:</strong> Permanent modernization capacity</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside class="notes">
+              This is the flywheel effect. Early investment builds the portfolio. Projects generate savings. 25% of savings flow back to fund future projects. The fund balance drops initially—that's expected—but by Year 5-7, the reinvestment exceeds ongoing needs. You've created permanent modernization capacity.
+            </aside>
+          </section>
+
+          <!-- Slide 20: Procurement Innovation -->
+          <section>
+            <h2>Procurement Innovation</h2>
+            <p class="lead">From 18-month procurement cycles to contracts in days.</p>
+
+            <div class="grid-2">
+              <div>
+                <h4>Three Integrated Components</h4>
+                <table>
+                  <tr>
+                    <td><strong>Enterprise Vendor Pools</strong></td>
+                    <td>Pre-qualified vendors → task orders in days</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Modular Contracting</strong></td>
+                    <td>$15M cap → smaller failures, more competition</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rapid RFI²</strong></td>
+                    <td>Challenge-based → validated solutions in 8-10 weeks</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="card">
+                <h4>$15M Modular Cap</h4>
+                <p>Instead of one $50M contract:</p>
+                <ul class="small">
+                  <li>Module 1: Platform ($12M) — best platform expertise</li>
+                  <li>Module 2: Data Migration ($12M) — best data expertise</li>
+                  <li>Module 3: Applications ($14M) — best UX team</li>
+                  <li>Module 4: Operations ($12M) — best value support</li>
+                </ul>
+                <p class="small muted" style="margin-top: 0.5rem;">Different vendors compete at each phase. Underperformers replaced.</p>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>Rapid RFI² ("Shark Tank for Contracts"):</strong> Define the problem, not the solution. Vendors submit concepts → 2-3 selected → $50K paid sprints → working prototypes evaluated → contract award. 8-10 weeks total. The code is the proposal.
+            </div>
+
+            <aside class="notes">
+              Traditional procurement takes 18-24 months because every contract starts from scratch. By the time you award, the technology has moved on. Vendor pools pre-compete once so you can order many times. The $15M cap ensures failed $8M modules don't become failed $60M programs. And RFI² validates solutions actually work before you commit real money.
+            </aside>
+          </section>
+
+          <!-- ============================================
+               SECTION F: IMPLEMENTATION & ASKS
+               ============================================ -->
+
+          <!-- Slide 21: Budget Summary -->
+          <section>
+            <h2>Budget Summary</h2>
+            <p class="lead">Two complementary funding streams—General Fund for positions, Breakthrough Fund for projects.</p>
+
+            <div class="grid-2">
+              <div>
+                <h4>General Fund (Annual, Year 3+)</h4>
+                <table>
+                  <tr>
+                    <td>E3 Leadership Positions</td>
+                    <td><strong>$10-17M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>TMO Staff + Operations</td>
+                    <td><strong>$4-5M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Independent Office</td>
+                    <td><strong>$2.5-4M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Fellowship + Stewards</td>
+                    <td><strong>$6-12M</strong></td>
+                  </tr>
+                  <tr style="background: var(--bg-tertiary);">
+                    <td><strong>Total Operating</strong></td>
+                    <td><strong>$23-38M</strong></td>
+                  </tr>
+                </table>
+              </div>
+
+              <div>
+                <h4>One-Time Investment (Year 1)</h4>
+                <table>
+                  <tr>
+                    <td>Operating ramp-up</td>
+                    <td><strong>$15-25M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Independent Office setup</td>
+                    <td><strong>$3-5M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Breakthrough Fund (state)</td>
+                    <td><strong>$50M</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Private sector match</td>
+                    <td><strong>$50M</strong></td>
+                  </tr>
+                  <tr style="background: var(--bg-tertiary);">
+                    <td><strong>Total Year 1</strong></td>
+                    <td><strong>$118-130M</strong></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="callout callout-success">
+              <strong>ROI:</strong> Year 3 projected savings of $75-125M annually. Year 5 cumulative savings of $200-350M. The program pays for itself 3-5x over.
+            </div>
+
+            <aside class="notes">
+              Let me put this in context. California is losing $3B+ annually to fraud, failed projects, and inefficiency. This plan costs $23-38M annually to operate—roughly 1% of the documented losses. And it generates $75-125M in savings by Year 3. This isn't a cost center; it's an investment with measurable returns.
+            </aside>
+          </section>
+
+          <!-- Slide 22: Implementation Timeline -->
+          <section>
+            <h2>Implementation Timeline</h2>
+
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-date">6 Months</div>
+                <div class="timeline-title">Foundation</div>
+                <div class="timeline-desc">4 Undersecretaries appointed • TMO established • Fellowship Cohort 1 launched • 3-5 Quick Wins delivering $5-10M savings</div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-date">12 Months</div>
+                <div class="timeline-title">Operational</div>
+                <div class="timeline-desc">10 CDDs deployed • Independent Office operational • $100M fund capitalized • First Strategic Initiatives underway • Private sector match secured</div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-date">36 Months</div>
+                <div class="timeline-title">Full Deployment</div>
+                <div class="timeline-desc">8-12 Undersecretaries + 30-40 CDDs deployed • 120+ Senior Fellows graduated • $75-125M annual savings • 25% legacy reduction • 50% digital adoption</div>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>This is not a 5-year plan that delivers value in Year 5.</strong> Quick Wins begin in Month 3. The fund starts generating returns in Year 1. By Year 3, the program pays for itself.
+            </div>
+
+            <aside class="notes">
+              The front-loaded value delivery is intentional. We're not asking for 5 years of patience. By Month 6, you have visible wins and measurable savings. By Year 1, the fund is operational and producing returns. By Year 3, we're generating more savings than we're spending. This is designed to build momentum and demonstrate value quickly.
+            </aside>
+          </section>
+
+          <!-- Slide 23: Key Risks -->
+          <section>
+            <h2>Key Risks and Mitigations</h2>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Risk</th>
+                  <th>If It Happens</th>
+                  <th>Mitigation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Legislation delayed</strong></td>
+                  <td>Data sharing remains 12-18 months</td>
+                  <td>Interim committee under executive authority; continue advocacy</td>
+                </tr>
+                <tr>
+                  <td><strong>Resistance to change</strong></td>
+                  <td>Quick wins stall; E3 becomes advisory</td>
+                  <td>Deploy to ready departments first; build coalition of success</td>
+                </tr>
+                <tr>
+                  <td><strong>Political transition</strong></td>
+                  <td>New administration deprioritizes</td>
+                  <td>Cross-branch governance; civil service positions; bipartisan framing</td>
+                </tr>
+                <tr>
+                  <td><strong>Private match shortfall</strong></td>
+                  <td>Fund capitalized below $100M</td>
+                  <td>Scale proportionally; state can proceed at $50M</td>
+                </tr>
+                <tr>
+                  <td><strong>Savings don't materialize</strong></td>
+                  <td>Fund sustainability delayed</td>
+                  <td>Pause expansion; focus on proven Quick Wins; portfolio approach limits exposure</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout callout-danger">
+              <strong>The Biggest Risk:</strong> Doing nothing. The $3B+ in annual losses continues. Legacy systems get older. Talent keeps leaving. And California falls further behind peer states that are already investing.
+            </div>
+
+            <aside class="notes">
+              Let me be direct about the real risk calculation. Massachusetts committed $1.26 billion to their FutureTech Act. Colorado spends $373M on modernization. California's $23-38M is a fraction of peer investment. The risk isn't that we invest and fail—it's that we don't invest and fall further behind while losing $3B annually to preventable failures.
+            </aside>
+          </section>
+
+          <!-- Slide 24: The Ask -->
+          <section>
+            <h2>The Ask</h2>
+            <p class="lead">Four decisions. Three months. The window is now.</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Owner</th>
+                  <th>Timeline</th>
+                  <th>Why Now</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Approve E3 leadership structure</strong></td>
+                  <td>Governor</td>
+                  <td>Q1 2026</td>
+                  <td>Budget cycle alignment—positions must be in FY 2026-27</td>
+                </tr>
+                <tr>
+                  <td><strong>Issue Executive Order: $15M contracting cap</strong></td>
+                  <td>Governor</td>
+                  <td>Q1 2026</td>
+                  <td>Immediate impact; no legislation required</td>
+                </tr>
+                <tr>
+                  <td><strong>Authorize $50M Breakthrough Fund</strong></td>
+                  <td>Legislature</td>
+                  <td>FY 2026-27</td>
+                  <td>Private sector partners waiting on state commitment</td>
+                </tr>
+                <tr>
+                  <td><strong>Establish Independent Office</strong></td>
+                  <td>Governor + Legislature</td>
+                  <td>Q2 2026</td>
+                  <td>Foundation for cross-agency efficiency</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout callout-warning">
+              <strong>What Happens If We Wait:</strong> Another budget cycle lost (12+ months). Private sector partners move on. Legacy systems become another year more brittle. The next crisis finds the same vulnerabilities.
+            </div>
+
+            <aside class="notes">
+              These are the four decisions that unlock everything else. The E3 structure creates accountability. The contracting cap enables modern procurement. The Breakthrough Fund provides investment capacity. The Independent Office creates data governance authority. None of these require the other three to start—but all four together create the full system.
+            </aside>
+          </section>
+
+          <!-- Slide 25: Next Steps -->
+          <section>
+            <h2>Next Steps</h2>
+
+            <div class="grid-2">
+              <div class="card">
+                <h4>Immediate (This Month)</h4>
+                <ul>
+                  <li>Schedule follow-up briefing with GovOps Secretary</li>
+                  <li>Circulate Cabinet one-pager for feedback</li>
+                  <li>Begin CalHR consultation on E3 classifications</li>
+                  <li>Identify pilot departments (ready and willing)</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <h4>Q1 2026</h4>
+                <ul>
+                  <li>Finalize E3 position descriptions with CalHR</li>
+                  <li>Draft Executive Order for $15M contracting cap</li>
+                  <li>Begin legislative outreach for Independent Office</li>
+                  <li>Identify private sector partnership leads</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>Ready to proceed:</strong> Full plan documentation, implementation toolkit, stakeholder briefing materials, and draft Executive Order language are available.
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+              <p class="lead">Questions and Discussion</p>
+              <p class="muted">For detailed appendices and technical documentation:</p>
+              <p><a href="ca-enterprise-modernization-appendix-2026-01.html" style="color: var(--accent-primary); font-size: 1.125rem;">Open Appendix Slides →</a></p>
+            </div>
+
+            <aside class="notes">
+              The full plan documentation is ready. We have implementation toolkits, template Executive Order language, stakeholder briefing materials, and detailed technical appendices. The question isn't whether the plan is ready—it's whether we have the political will to act on documented losses that have persisted for 18 years.
+            </aside>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Appendix Link -->
+      <a href="ca-enterprise-modernization-appendix-2026-01.html" class="appendix-link">📎 Open Appendix</a>
+    </div>
+  </div>
+
+  <!-- Reveal.js -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+
+  <script>
+    // Initialize Reveal.js
+    Reveal.initialize({
+      hash: true,
+      history: true,
+      controls: true,
+      progress: false,
+      center: false,
+      transition: 'fade',
+      transitionSpeed: 'fast',
+      width: '100%',
+      height: '100%',
+      margin: 0,
+      minScale: 1,
+      maxScale: 1
+    });
+
+    // Navigation sync
+    function goToSlide(index) {
+      Reveal.slide(index);
+    }
+
+    function updateNavigation() {
+      const currentSlide = Reveal.getIndices().h;
+      const totalSlides = Reveal.getTotalSlides();
+
+      // Update active nav item
+      document.querySelectorAll('.nav-section').forEach((section, i) => {
+        section.classList.toggle('active', i === currentSlide);
+      });
+
+      // Update progress
+      document.getElementById('progress-counter').textContent = `${currentSlide + 1} of ${totalSlides}`;
+      document.getElementById('progress-fill').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+    }
+
+    Reveal.on('slidechanged', updateNavigation);
+    updateNavigation();
+
+    // Charts
+    Chart.defaults.color = '#a0a0b0';
+    Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.08)';
+
+    // Portfolio Risk/Return Chart
+    const portfolioCtx = document.getElementById('portfolioChart');
+    if (portfolioCtx) {
+      new Chart(portfolioCtx, {
+        type: 'bubble',
+        data: {
+          datasets: [
+            {
+              label: 'Quick Wins',
+              data: [{ x: 20, y: 60, r: 25 }],
+              backgroundColor: 'rgba(34, 197, 94, 0.6)',
+              borderColor: '#22c55e'
+            },
+            {
+              label: 'Strategic Initiatives',
+              data: [{ x: 50, y: 120, r: 25 }],
+              backgroundColor: 'rgba(245, 158, 11, 0.6)',
+              borderColor: '#f59e0b'
+            },
+            {
+              label: 'Innovation Ventures',
+              data: [{ x: 80, y: 200, r: 15 }],
+              backgroundColor: 'rgba(239, 68, 68, 0.6)',
+              borderColor: '#ef4444'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              title: { display: true, text: 'Risk Level (%)' },
+              min: 0,
+              max: 100
+            },
+            y: {
+              title: { display: true, text: 'Potential Return ($M)' },
+              min: 0,
+              max: 250
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom' },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.dataset.label}: Risk ${context.raw.x}%, Return $${context.raw.y}M`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Fund Sustainability Chart
+    const sustainabilityCtx = document.getElementById('sustainabilityChart');
+    if (sustainabilityCtx) {
+      new Chart(sustainabilityCtx, {
+        type: 'line',
+        data: {
+          labels: ['Year 0', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+          datasets: [
+            {
+              label: 'Fund Balance ($M)',
+              data: [100, 70.5, 42.5, 21.25, 6.25, 2.5],
+              borderColor: '#4a9eff',
+              backgroundColor: 'rgba(74, 158, 255, 0.1)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Cumulative Savings ($M)',
+              data: [0, 2, 10, 25, 45, 70],
+              borderColor: '#22c55e',
+              backgroundColor: 'rgba(34, 197, 94, 0.1)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Annual Reinvestment ($M)',
+              data: [0, 0.5, 2, 3.75, 5, 6.25],
+              borderColor: '#d090ff',
+              backgroundColor: 'rgba(208, 144, 255, 0.1)',
+              fill: true,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              title: { display: true, text: 'Amount ($M)' }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
